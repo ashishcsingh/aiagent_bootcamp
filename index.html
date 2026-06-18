@@ -161,14 +161,21 @@
         let activeLessonId = '';
 
         // Configure marked options with highlight.js code parsing
-        marked.setOptions({
-            highlight: function(code, lang) {
-                if (lang && hljs.getLanguage(lang)) {
-                    return hljs.highlight(code, { language: lang }).value;
-                }
-                return hljs.highlightAuto(code).value;
+        function initializeMarked() {
+            if (typeof marked !== 'undefined') {
+                marked.setOptions({
+                    highlight: function(code, lang) {
+                        if (lang && typeof hljs !== 'undefined' && hljs.getLanguage(lang)) {
+                            return hljs.highlight(code, { language: lang }).value;
+                        }
+                        if (typeof hljs !== 'undefined') {
+                            return hljs.highlightAuto(code).value;
+                        }
+                        return code;
+                    }
+                });
             }
-        });
+        }
 
         // Initialize progress state from LocalStorage
         function getCompletedLessons() {
@@ -273,10 +280,16 @@
                 });
 
                 // Trigger highlight.js for all code blocks in container
-                article.querySelectorAll('pre code').forEach((el) => {
-                    hljs.highlightElement(el);
-                    addCopyButton(el.parentElement);
-                });
+                if (typeof hljs !== 'undefined') {
+                    article.querySelectorAll('pre code').forEach((el) => {
+                        hljs.highlightElement(el);
+                        addCopyButton(el.parentElement);
+                    });
+                } else {
+                    article.querySelectorAll('pre code').forEach((el) => {
+                        addCopyButton(el.parentElement);
+                    });
+                }
 
                 // Unhide the article BEFORE rendering Mermaid diagrams so that elements
                 // are visible in the DOM, allowing Mermaid to calculate SVG bounds/layout.
@@ -356,6 +369,10 @@
 
         // Initialize App
         window.addEventListener('DOMContentLoaded', () => {
+            // Initialize marked options inside the DOMContentLoaded callback so it runs after
+            // the deferred marked.js and highlight.js scripts have executed and defined global objects.
+            initializeMarked();
+
             // Initialize Mermaid inside the DOMContentLoaded callback so it runs after
             // the deferred mermaid.js script has executed and defined the global mermaid object.
             if (typeof mermaid !== 'undefined') {

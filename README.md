@@ -47,3 +47,22 @@ Exposes a minimal stdio-based Model Context Protocol (MCP) server:
 python examples/02_mcp_server.py
 ```
 To run the server in a client like Claude Desktop, append its path configuration to your client settings.
+
+#### Example 03: CrewAI Collaboration
+Demonstrates sequential multi-agent orchestration by defining specialized agents (Researcher and Writer), assigning tasks, and kicking off a sequential pipeline:
+```bash
+python examples/03_crewai_collaboration.py
+```
+
+#### Example 04: LangGraph Workflow
+Demonstrates a state-based workflow utilizing nodes (functions) and router edges to execute a cyclic revision loop (Writer <-> Critic):
+```bash
+python examples/04_langgraph_workflow.py
+```
+
+#### Example 05: AutoGen Chat
+Demonstrates conversational message-passing between an AssistantAgent and a UserProxyAgent to write, execute, and debug code dynamically:
+```bash
+python examples/05_autogen_chat.py
+```
+

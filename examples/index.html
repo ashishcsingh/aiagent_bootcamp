@@ -373,7 +373,16 @@
             appendTerminalLog(`[System] Fetching source code for ${filepath}...`, 'text-blue-400');
 
             try {
-                const response = await fetch(filepath);
+                // Resolve trailing-slash routing issues on live hosting environments
+                let basePath = window.location.pathname;
+                if (basePath.endsWith('index.html')) {
+                    basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+                } else if (!basePath.endsWith('/')) {
+                    basePath += '/';
+                }
+                const fetchPath = basePath + filepath;
+
+                const response = await fetch(fetchPath);
                 if (!response.ok) throw new Error(`Could not fetch script: ${response.statusText}`);
                 const code = await response.text();
 

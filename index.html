@@ -245,7 +245,16 @@
             if (!lesson) return;
 
             try {
-                const response = await fetch(lesson.path);
+                // Resolve trailing-slash routing issues on live hosting environments
+                let basePath = window.location.pathname;
+                if (basePath.endsWith('index.html')) {
+                    basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+                } else if (!basePath.endsWith('/')) {
+                    basePath += '/';
+                }
+                const fetchPath = basePath + lesson.path;
+
+                const response = await fetch(fetchPath);
                 if (!response.ok) throw new Error("Lesson not found");
                 const md = await response.text();
                 

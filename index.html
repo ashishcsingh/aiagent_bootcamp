@@ -32,13 +32,10 @@
     </noscript>
 
     <!-- Dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
 </head>
 <body class="antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col hero-bg text-slate-300">
 
@@ -48,6 +45,7 @@
             <div class="text-2xl font-extrabold tracking-tight">
                 <a href="#" class="flex items-center gap-3 group" aria-label="Bootcamp Homepage">
                     <img src="https://aiagent.org/Aiagent.jpeg" alt="aiagent.org Official Logo" width="34" height="34"
+                        fetchpriority="high" loading="eager" decoding="async"
                         class="h-8.5 w-auto object-contain rounded-md shadow-sm group-hover:scale-105 transition-transform duration-300">
                     <span class="text-white flex items-center gap-2">
                         aiagent<span class="text-blue-500">.org</span>
@@ -357,6 +355,11 @@
 
         // Initialize App
         window.addEventListener('DOMContentLoaded', () => {
+            // Initialize Mermaid inside the DOMContentLoaded callback so it runs after
+            // the deferred mermaid.js script has executed and defined the global mermaid object.
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+            }
             const hash = window.location.hash.replace('#', '');
             const startLesson = LESSONS.some(l => l.id === hash) ? hash : LESSONS[0].id;
             loadLesson(startLesson);

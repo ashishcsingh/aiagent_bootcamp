@@ -43,14 +43,18 @@ tool_schema = {
 
 An autonomous single-agent loop runs sequentially through these phases:
 
-```
-[Start] -> [Prompt Construction] -> [LLM Inference] -> [Is Tool Call Requested?]
-                                                               |
-                                            +------------------+------------------+
-                                            | Yes                                 | No
-                                            v                                     v
-                                    [Execute Tool] -> [Observation]           [Return Final
-                                                                                  Answer] -> [End]
+```mermaid
+graph TD
+    Start([Start]) --> Prompt[Prompt Construction]
+    Prompt --> Inference[LLM Inference]
+    Inference --> Decision{Is Tool Call Requested?}
+    
+    Decision -->|Yes| Execute[Execute Tool]
+    Execute --> Observe[Observation]
+    Observe --> Prompt
+    
+    Decision -->|No| Respond[Return Final Answer]
+    Respond --> End([End])
 ```
 
 1.  **System Prompting:** Injecting instructions telling the model it has access to tools and must output a specific format (e.g., JSON or special block tags like `Thought:` and `Action:`).

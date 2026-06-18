@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Developer Tools | aiagent.org</title>
+    
+    <!-- Tailwind CSS & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config for Theme Alignment -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020617;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tab-active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-300 min-h-screen flex flex-col font-sans selection:bg-blue-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="glass-panel sticky top-0 z-40 border-b border-slate-900/80">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold tracking-tight">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <img src="https://aiagent.org/Aiagent.jpeg" alt="aiagent.org Official Logo" width="34" height="34"
+                        class="h-8 w-auto object-contain rounded-md shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <span class="text-white flex items-center gap-2">
+                        aiagent<span class="text-blue-500">.org</span>
+                        <span class="text-[9px] font-mono bg-blue-600/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full uppercase tracking-widest font-bold">Tools</span>
+                    </span>
+                </a>
+            </div>
+            <div class="flex items-center space-x-6 text-[13px] font-semibold text-slate-400">
+                <a href="../index.html" class="hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Course
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-12 flex flex-col gap-8">
+        
+        <!-- Page Title -->
+        <div class="flex flex-col gap-2 max-w-3xl">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight gradient-text">AI Developer Utility Hub</h1>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                Developer tools designed for creating, testing, and debugging structured schemas and payload differences for AI agents.
+            </p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="border-b border-slate-800 flex gap-6 text-sm font-medium">
+            <button onclick="switchTab('json')" id="tab-json" class="pb-3 border-b-2 border-transparent hover:text-white transition focus:outline-none">
+                JSON Formatter & Validator
+            </button>
+            <button onclick="switchTab('diff')" id="tab-diff" class="pb-3 border-b-2 border-transparent hover:text-white transition focus:outline-none">
+                JSON Diff Tool
+            </button>
+            <button onclick="switchTab('schema')" id="tab-schema" class="pb-3 border-b-2 border-transparent hover:text-white transition focus:outline-none">
+                JSON Schema Generator
+            </button>
+        </div>
+
+        <!-- TAB CONTENT: JSON FORMATTER -->
+        <div id="content-json" class="tab-content hidden flex flex-col gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Input Panel -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Raw Payload</h3>
+                        <div class="flex gap-2">
+                            <button onclick="formatJSON(4)" class="px-2.5 py-1 text-[10px] font-mono font-bold bg-blue-600 hover:bg-blue-500 text-white rounded transition">Beautify</button>
+                            <button onclick="formatJSON(0)" class="px-2.5 py-1 text-[10px] font-mono font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition">Minify</button>
+                            <button onclick="clearJSONInput()" class="px-2.5 py-1 text-[10px] font-mono font-bold bg-red-950/20 text-red-400 border border-red-900/30 hover:bg-red-900/20 rounded transition">Clear</button>
+                        </div>
+                    </div>
+                    <textarea id="json-raw-input" class="w-full h-96 bg-slate-950 rounded-xl border border-slate-800 p-4 font-mono text-xs text-slate-300 focus:outline-none focus:border-blue-500/50" placeholder="Paste your raw JSON payload here..."></textarea>
+                </div>
+                <!-- Output / Validation Panel -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Parsed Result</h3>
+                        <button onclick="copyOutput('json-parsed-output')" class="px-2.5 py-1 text-[10px] font-mono font-bold bg-slate-800 hover:bg-slate-700 text-white rounded transition">Copy Result</button>
+                    </div>
+                    <div class="relative flex-1 min-h-[24rem]">
+                        <pre id="json-parsed-output" class="w-full h-96 bg-slate-950 rounded-xl border border-slate-800 p-4 font-mono text-xs text-slate-300 overflow-auto whitespace-pre-wrap select-all">Beautified output will render here...</pre>
+                        <!-- Validation Overlay -->
+                        <div id="json-validation-msg" class="absolute bottom-4 left-4 right-4 bg-emerald-950/40 border border-emerald-800/40 text-emerald-400 px-4 py-3 rounded-lg text-xs font-mono hidden">
+                            ✔ Valid JSON
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: JSON DIFF -->
+        <div id="content-diff" class="tab-content hidden flex flex-col gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- JSON Source A -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Source JSON (A)</h3>
+                    <textarea id="diff-input-a" class="w-full h-60 bg-slate-950 rounded-xl border border-slate-800 p-4 font-mono text-xs text-slate-300 focus:outline-none focus:border-blue-500/50" placeholder="Paste first JSON here..."></textarea>
+                </div>
+                <!-- JSON Source B -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Modified JSON (B)</h3>
+                    <textarea id="diff-input-b" class="w-full h-60 bg-slate-950 rounded-xl border border-slate-800 p-4 font-mono text-xs text-slate-300 focus:outline-none focus:border-blue-500/50" placeholder="Paste modified JSON here..."></textarea>
+                </div>
+            </div>
+            
+            <div class="flex justify-center">
+                <button onclick="compareJSON()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold font-mono tracking-wider transition uppercase">Run Comparison</button>
+            </div>
+
+            <!-- Diff Output Panel -->
+            <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Difference Report</h3>
+                    <div id="diff-summary" class="text-xs font-mono text-slate-500">Compare inputs to view lines updated.</div>
+                </div>
+                <div id="diff-output-container" class="w-full min-h-[16rem] max-h-[32rem] overflow-auto bg-slate-950 rounded-xl border border-slate-800 p-4 font-mono text-xs text-slate-300 space-y-0.5">
+                    <div class="text-slate-500">Run Comparison to generate results.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: SCHEMA GENERATOR -->
+        <div id="content-schema" class="tab-content hidden flex flex-col gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Source JSON Input -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sample Payload</h3>
+                        <button onclick="generateSchema()" class="px-2.5 py-1 text-[10px] font-mono font-bold bg-blue-600 hover:bg-blue-500 text-white rounded transition">Generate Schema</button>
+                    </div>
+                    <textarea id="schema-raw-input" class="w-full h-96 bg-slate-950 rounded-xl border border-slate-800 p-4 font-mono text-xs text-slate-300 focus:outline-none focus:border-blue-500/50" placeholder='{&#10;  "model": "gpt-4o",&#10;  "temperature": 0.7,&#10;  "tools": ["search", "web_reader"]&#10;}'></textarea>
+                </div>
+                <!-- Schema Output -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">JSON Schema Output</h3>
+                        <button onclick="copyOutput('schema-json-output')" class="px-2.5 py-1 text-[10px] font-mono font-bold bg-slate-800 hover:bg-slate-700 text-white rounded transition">Copy Schema</button>
+                    </div>
+                    <pre id="schema-json-output" class="w-full h-96 bg-slate-950 rounded-xl border border-slate-800 p-4 font-mono text-xs text-slate-300 overflow-auto whitespace-pre-wrap select-all">Schema output will render here...</pre>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-950 py-8 bg-slate-950/40 text-center text-xs text-slate-500 font-mono">
+        &copy; 2026 AI Agent Bootcamp | aiagent.org. Utilities designed for developer convenience.
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.remove('tab-active'));
+            
+            const activeContent = document.getElementById('content-' + tabId);
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeContent && activeTab) {
+                activeContent.classList.remove('hidden');
+                activeTab.classList.add('tab-active');
+            }
+            
+            // Set URL hash/params
+            const url = new URL(window.location);
+            url.searchParams.set('tab', tabId);
+            window.history.pushState({}, '', url);
+        }
+
+        // Copy panel text helper
+        function copyOutput(id) {
+            const pre = document.getElementById(id);
+            if (!pre) return;
+            const text = pre.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        // Formatter functions
+        function clearJSONInput() {
+            document.getElementById('json-raw-input').value = '';
+            document.getElementById('json-parsed-output').innerText = 'Beautified output will render here...';
+            document.getElementById('json-validation-msg').classList.add('hidden');
+        }
+
+        function formatJSON(spacing) {
+            const inputEl = document.getElementById('json-raw-input');
+            const outputEl = document.getElementById('json-parsed-output');
+            const valMsg = document.getElementById('json-validation-msg');
+            
+            valMsg.classList.add('hidden');
+            const rawVal = inputEl.value.trim();
+            if (!rawVal) {
+                outputEl.innerText = "Please input raw JSON data.";
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(rawVal);
+                outputEl.innerText = JSON.stringify(parsed, null, spacing);
+                valMsg.classList.remove('hidden');
+                valMsg.className = "absolute bottom-4 left-4 right-4 bg-emerald-950/40 border border-emerald-800/40 text-emerald-400 px-4 py-3 rounded-lg text-xs font-mono";
+                valMsg.innerText = "✔ Valid JSON";
+            } catch (err) {
+                outputEl.innerText = `Invalid JSON:\n${err.message}`;
+                valMsg.classList.remove('hidden');
+                valMsg.className = "absolute bottom-4 left-4 right-4 bg-red-950/40 border border-red-800/40 text-red-400 px-4 py-3 rounded-lg text-xs font-mono";
+                valMsg.innerText = `✘ Validation error: ${err.message}`;
+            }
+        }
+
+        // Diff compare algorithm (Custom line-by-line highlight)
+        function compareJSON() {
+            const inputA = document.getElementById('diff-input-a').value.trim();
+            const inputB = document.getElementById('diff-input-b').value.trim();
+            const container = document.getElementById('diff-output-container');
+            const summary = document.getElementById('diff-summary');
+
+            if (!inputA || !inputB) {
+                container.innerHTML = '<div class="text-slate-500">Please provide inputs for both fields.</div>';
+                return;
+            }
+
+            let strA = "";
+            let strB = "";
+
+            try {
+                strA = JSON.stringify(JSON.parse(inputA), null, 4);
+            } catch (e) {
+                container.innerHTML = `<div class="text-red-400">Error parsing JSON (A): ${e.message}</div>`;
+                return;
+            }
+
+            try {
+                strB = JSON.stringify(JSON.parse(inputB), null, 4);
+            } catch (e) {
+                container.innerHTML = `<div class="text-red-400">Error parsing JSON (B): ${e.message}</div>`;
+                return;
+            }
+
+            const linesA = strA.split('\n');
+            const linesB = strB.split('\n');
+            
+            container.innerHTML = "";
+            let additions = 0;
+            let removals = 0;
+            let i = 0;
+            let j = 0;
+
+            // Simple Myers diff logic approximation for line comparing
+            while (i < linesA.length || j < linesB.length) {
+                if (i < linesA.length && j < linesB.length && linesA[i] === linesB[j]) {
+                    const row = document.createElement('div');
+                    row.className = "text-slate-500 pl-4 py-0.5 whitespace-pre";
+                    row.textContent = `  ${linesA[i]}`;
+                    container.appendChild(row);
+                    i++;
+                    j++;
+                } else {
+                    // Lookahead to check if line was added or removed
+                    let lookaheadAdd = -1;
+                    let lookaheadRem = -1;
+
+                    for (let x = 1; x < 5; x++) {
+                        if (j + x < linesB.length && linesA[i] === linesB[j + x]) {
+                            lookaheadAdd = x;
+                            break;
+                        }
+                        if (i + x < linesA.length && linesA[i + x] === linesB[j]) {
+                            lookaheadRem = x;
+                            break;
+                        }
+                    }
+
+                    if (lookaheadAdd !== -1) {
+                        for (let x = 0; x < lookaheadAdd; x++) {
+                            const row = document.createElement('div');
+                            row.className = "bg-emerald-950/40 border-l-2 border-emerald-500 pl-4 py-0.5 text-emerald-400 whitespace-pre font-bold";
+                            row.textContent = `+ ${linesB[j]}`;
+                            container.appendChild(row);
+                            additions++;
+                            j++;
+                        }
+                    } else if (lookaheadRem !== -1) {
+                        for (let x = 0; x < lookaheadRem; x++) {
+                            const row = document.createElement('div');
+                            row.className = "bg-red-950/40 border-l-2 border-red-500 pl-4 py-0.5 text-red-400 whitespace-pre font-bold";
+                            row.textContent = `- ${linesA[i]}`;
+                            container.appendChild(row);
+                            removals++;
+                            i++;
+                        }
+                    } else {
+                        // Modification fallback (both lines replaced)
+                        if (i < linesA.length) {
+                            const row = document.createElement('div');
+                            row.className = "bg-red-950/30 border-l-2 border-red-500 pl-4 py-0.5 text-red-500/80 whitespace-pre";
+                            row.textContent = `- ${linesA[i]}`;
+                            container.appendChild(row);
+                            removals++;
+                            i++;
+                        }
+                        if (j < linesB.length) {
+                            const row = document.createElement('div');
+                            row.className = "bg-emerald-950/30 border-l-2 border-emerald-500 pl-4 py-0.5 text-emerald-500/80 whitespace-pre";
+                            row.textContent = `+ ${linesB[j]}`;
+                            container.appendChild(row);
+                            additions++;
+                            j++;
+                        }
+                    }
+                }
+            }
+
+            summary.textContent = `${additions} additions, ${removals} removals.`;
+        }
+
+        // Recursive JSON Schema Generator
+        function generateSchema() {
+            const rawInput = document.getElementById('schema-raw-input').value.trim();
+            const outputEl = document.getElementById('schema-json-output');
+
+            if (!rawInput) {
+                outputEl.innerText = "Please provide valid JSON input.";
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(rawInput);
+                const schema = {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "GeneratedSchema",
+                    ...getTypeSchema(parsed)
+                };
+                outputEl.innerText = JSON.stringify(schema, null, 4);
+            } catch (err) {
+                outputEl.innerText = `Invalid JSON Input:\n${err.message}`;
+            }
+        }
+
+        function getTypeSchema(value) {
+            if (value === null) {
+                return { "type": "null" };
+            }
+            if (Array.isArray(value)) {
+                const itemSchema = value.length > 0 ? getTypeSchema(value[0]) : {};
+                return {
+                    "type": "array",
+                    "items": itemSchema
+                };
+            }
+            if (typeof value === "object") {
+                const properties = {};
+                const required = [];
+                for (const key in value) {
+                    if (value.hasOwnProperty(key)) {
+                        properties[key] = getTypeSchema(value[key]);
+                        required.push(key);
+                    }
+                }
+                const result = {
+                    "type": "object",
+                    "properties": properties
+                };
+                if (required.length > 0) {
+                    result["required"] = required;
+                }
+                return result;
+            }
+            return { "type": typeof value };
+        }
+
+        // Initialize active tab based on query param
+        window.addEventListener('DOMContentLoaded', () => {
+            const url = new URL(window.location);
+            const activeTab = url.searchParams.get('tab') || 'json';
+            switchTab(activeTab);
+        });
+    </script>
+</body>
+</html>

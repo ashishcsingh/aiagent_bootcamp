@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Examples Directory | AI Agent Bootcamp</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="title" content="Code Examples Directory | AI Agent Bootcamp">
+    <meta name="description" content="Explore and run hand-coded Python implementations of core AI agent patterns: ReAct, MCP, CrewAI, LangGraph, and AutoGen.">
+    
+    <!-- Tailwind CSS & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config for Theme Alignment -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020617;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glow-blue {
+            box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.15);
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-300 min-h-screen flex flex-col font-sans selection:bg-blue-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="glass-panel sticky top-0 z-40 border-b border-slate-900/80">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold tracking-tight">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <img src="https://aiagent.org/Aiagent.jpeg" alt="aiagent.org Official Logo" width="34" height="34"
+                        class="h-8.5 w-auto object-contain rounded-md shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <span class="text-white flex items-center gap-2">
+                        aiagent<span class="text-blue-500">.org</span>
+                        <span class="text-[9px] font-mono bg-blue-600/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full uppercase tracking-widest font-bold">Examples</span>
+                    </span>
+                </a>
+            </div>
+            <div class="flex items-center space-x-6 text-[13px] font-semibold text-slate-400">
+                <a href="../index.html" class="hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Course
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-12 flex flex-col gap-10">
+        
+        <!-- Page Title Section -->
+        <div class="flex flex-col gap-3 max-w-3xl">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white gradient-text">
+                Boilerplate Code Samples
+            </h1>
+            <p class="text-slate-400 leading-relaxed text-sm md:text-base">
+                These Python templates are built to demonstrate key single and multi-agent concepts from first principles. 
+                They use simulation and clean architecture to illustrate code structures without needing API keys or complex setups.
+            </p>
+        </div>
+
+        <!-- Examples Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Card 01 -->
+            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group">
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 01</span>
+                        <span class="text-xs font-mono text-slate-500">01_react_loop.py</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                        ReAct (Reason + Action) Loop
+                    </h2>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        A low-level implementation of the classic ReAct agent loop. Illustrates how to format model prompts with strict Thought/Action/Observation tags, parse structured output instructions, execute mocked tool calls (like search), and feed results back into context.
+                    </p>
+                    <div class="space-y-1.5">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Demonstrated Concepts:</h3>
+                        <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                            <li>ReAct logic framework (Thought &rarr; Action &rarr; Observation)</li>
+                            <li>Regex parsing of model-produced tool calls</li>
+                            <li>Dynamic history buffering and token thresholding</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col gap-3">
+                    <div class="flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
+                        <span class="text-slate-400 select-all">python examples/01_react_loop.py</span>
+                        <button onclick="copyCommand(this, 'python examples/01_react_loop.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
+                    </div>
+                    <div class="flex gap-3 text-xs">
+                        <a href="01_react_loop.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 02 -->
+            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group">
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 02</span>
+                        <span class="text-xs font-mono text-slate-500">02_mcp_server.py</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                        Model Context Protocol Server
+                    </h2>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        A stdio-based implementation of a Model Context Protocol (MCP) server. Standardizes how models interact with external data and tools, registering system commands, reading secure environment variables, and returning structured weather results.
+                    </p>
+                    <div class="space-y-1.5">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Demonstrated Concepts:</h3>
+                        <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                            <li>Standardized MCP tools, prompts, and resources</li>
+                            <li>JSON-RPC message processing over stdio channels</li>
+                            <li>Safe integration configurations for Desktop Clients</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col gap-3">
+                    <div class="flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
+                        <span class="text-slate-400 select-all">python examples/02_mcp_server.py</span>
+                        <button onclick="copyCommand(this, 'python examples/02_mcp_server.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
+                    </div>
+                    <div class="flex gap-3 text-xs">
+                        <a href="02_mcp_server.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 03 -->
+            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group">
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 03</span>
+                        <span class="text-xs font-mono text-slate-500">03_crewai_collaboration.py</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                        CrewAI Collaboration Workflow
+                    </h2>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Simulates how multiple specialized agents collaborate sequentially in a Crew. Defines a "Senior Technology Researcher" and a "Lead Technical Writer" who pipe context sequentially to draft a technical briefing.
+                    </p>
+                    <div class="space-y-1.5">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Demonstrated Concepts:</h3>
+                        <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                            <li>Role, Backstory, and Goal configuration for personas</li>
+                            <li>Sequential task pipelines passing outputs to inputs</li>
+                            <li>Structured crew coordination and kickoff loops</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col gap-3">
+                    <div class="flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
+                        <span class="text-slate-400 select-all">python examples/03_crewai_collaboration.py</span>
+                        <button onclick="copyCommand(this, 'python examples/03_crewai_collaboration.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
+                    </div>
+                    <div class="flex gap-3 text-xs">
+                        <a href="03_crewai_collaboration.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 04 -->
+            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group">
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 04</span>
+                        <span class="text-xs font-mono text-slate-500">04_langgraph_workflow.py</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                        LangGraph Stateful Cyclic Network
+                    </h2>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        A blackboard state design pattern. Simulates a cyclic Writer-Critic graph where nodes are functions modifying a central shared State object, and a router decides to loops back or terminate based on the critique.
+                    </p>
+                    <div class="space-y-1.5">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Demonstrated Concepts:</h3>
+                        <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                            <li>Shared Blackboard State objects for workflow data</li>
+                            <li>Graph Nodes (processing steps) and linear/conditional Edges</li>
+                            <li>Cyclic state-based routing and auto-termination limits</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col gap-3">
+                    <div class="flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
+                        <span class="text-slate-400 select-all">python examples/04_langgraph_workflow.py</span>
+                        <button onclick="copyCommand(this, 'python examples/04_langgraph_workflow.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
+                    </div>
+                    <div class="flex gap-3 text-xs">
+                        <a href="04_langgraph_workflow.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 05 -->
+            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group md:col-span-2">
+                <div class="flex flex-col md:flex-row gap-6 justify-between">
+                    <div class="flex flex-col gap-4 md:w-2/3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 05</span>
+                            <span class="text-xs font-mono text-slate-500">05_autogen_chat.py</span>
+                        </div>
+                        <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                            Microsoft AutoGen Conversational Session
+                        </h2>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            A multi-agent conversational setup featuring an `AssistantAgent` (coder) and a `UserProxyAgent` (code executor). Demonstrates automated message-passing loops where the coder drafts a division function, the proxy reports a division-by-zero crash, and the coder outputs a fixed script which terminates successfully.
+                        </p>
+                    </div>
+                    <div class="space-y-1.5 md:w-1/3">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Demonstrated Concepts:</h3>
+                        <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                            <li>Conversational message-passing agent loops</li>
+                            <li>Autonomous UserProxy code execution simulation</li>
+                            <li>Custom criteria matching and TERMINATE handshakes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+                    <div class="flex-1 flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
+                        <span class="text-slate-400 select-all">python examples/05_autogen_chat.py</span>
+                        <button onclick="copyCommand(this, 'python examples/05_autogen_chat.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
+                    </div>
+                    <div class="flex gap-3 text-xs md:w-64">
+                        <a href="05_autogen_chat.py" download class="flex-1 text-center py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-950 py-8 bg-slate-950/40 text-center text-xs text-slate-500 font-mono">
+        &copy; 2026 AI Agent Bootcamp | aiagent.org. Built for developer enablement.
+    </footer>
+
+    <!-- Copy Interaction Script -->
+    <script>
+        function copyCommand(btn, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                btn.classList.add('text-blue-400', 'border-blue-500/30');
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('text-blue-400', 'border-blue-500/30');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

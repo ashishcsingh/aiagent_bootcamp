@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Bootcamp | aiagent.org</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="title" content="AI Agent Bootcamp | aiagent.org">
+    <meta name="description" content="A premium, self-paced technical curriculum covering agentic loops, tool integration, multi-agent networks, Model Context Protocol, and sandboxed execution.">
+    <link rel="canonical" href="https://aiagent.org/bootcamp">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aiagent.org/bootcamp">
+    <meta property="og:title" content="AI Agent Bootcamp | aiagent.org">
+    <meta property="og:description" content="Master autonomous AI agents. Learn to build, scale, and secure single and multi-agent workflows from scratch.">
+    <meta property="og:image" content="https://aiagent.org/Aiagent.jpeg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aiagent.org/bootcamp">
+    <meta property="twitter:title" content="AI Agent Bootcamp | aiagent.org">
+    <meta property="twitter:description" content="Master autonomous AI agents. Learn to build, scale, and secure single and multi-agent workflows from scratch.">
+    <meta property="twitter:image" content="https://aiagent.org/Aiagent.jpeg">
+
+    <!-- CSS and Fonts -->
+    <link href="dist/output.css" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    </noscript>
+
+    <!-- Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col hero-bg text-slate-300">
+
+    <!-- Header Navigation -->
+    <header class="glass-panel sticky top-0 z-40 border-b border-slate-900/80">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Main Navigation">
+            <div class="text-2xl font-extrabold tracking-tight">
+                <a href="#" class="flex items-center gap-3 group" aria-label="Bootcamp Homepage">
+                    <img src="https://aiagent.org/Aiagent.jpeg" alt="aiagent.org Official Logo" width="34" height="34"
+                        class="h-8.5 w-auto object-contain rounded-md shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <span class="text-white flex items-center gap-2">
+                        aiagent<span class="text-blue-500">.org</span>
+                        <span class="text-[9px] font-mono bg-blue-600/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full uppercase tracking-widest font-bold">Bootcamp</span>
+                    </span>
+                </a>
+            </div>
+            <div class="flex items-center space-x-6 text-[13px] font-semibold text-slate-400">
+                <a href="https://aiagent.org" class="hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Hub
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex-1 flex flex-col lg:flex-row max-w-[1600px] w-full mx-auto container px-4 lg:px-6 py-8 gap-6 relative">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full lg:w-80 flex-shrink-0 flex flex-col gap-4">
+            <div class="glass-panel p-6 rounded-2xl border-slate-800 flex flex-col gap-5 sticky top-24">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1.5">Curriculum</h3>
+                    <p class="text-xs text-slate-500">Track your progress as you complete the modules.</p>
+                </div>
+                
+                <!-- Lesson Navigation Menu -->
+                <nav id="curriculum-menu" class="space-y-1.5 flex flex-col" aria-label="Curriculum Modules">
+                    <!-- Loaded dynamically via JS -->
+                </nav>
+
+                <div class="border-t border-slate-800/80 pt-4 flex flex-col gap-3">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Resources</h3>
+                    <div class="flex flex-col gap-2.5 text-xs text-slate-500 font-mono">
+                        <a href="examples/01_react_loop.py" download class="hover:text-blue-400 transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            01_react_loop.py
+                        </a>
+                        <a href="examples/02_mcp_server.py" download class="hover:text-blue-400 transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            02_mcp_server.py
+                        </a>
+                        <a href="examples/03_crewai_collaboration.py" download class="hover:text-blue-400 transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            03_crewai_collaboration.py
+                        </a>
+                        <a href="examples/04_langgraph_workflow.py" download class="hover:text-blue-400 transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            04_langgraph_workflow.py
+                        </a>
+                        <a href="examples/05_autogen_chat.py" download class="hover:text-blue-400 transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            05_autogen_chat.py
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 glass-panel p-6 md:p-12 rounded-3xl border-slate-800/60 relative overflow-hidden flex flex-col min-h-[500px]">
+            <!-- Top Right Completion Checkbox -->
+            <div id="completion-trigger-container" class="absolute top-8 right-8 z-10 hidden items-center gap-2 text-xs font-mono font-bold bg-slate-900/60 border border-slate-800 px-3.5 py-1.5 rounded-full backdrop-blur">
+                <input type="checkbox" id="lesson-complete-checkbox" class="w-4 h-4 text-blue-600 border-slate-700 bg-slate-950 rounded focus:ring-blue-500 focus:ring-2 accent-blue-600 cursor-pointer">
+                <label for="lesson-complete-checkbox" class="cursor-pointer text-slate-400 hover:text-white select-none">Mark as Completed</label>
+            </div>
+
+            <!-- Loader placeholder -->
+            <div id="content-loader" class="flex-1 flex flex-col items-center justify-center py-20 text-slate-500 font-mono text-sm animate-pulse">
+                LOADING LESSON CONTENT...
+            </div>
+
+            <!-- Parsed Markdown Container -->
+            <article id="lesson-article" class="prose max-w-none hidden lesson-transition">
+                <!-- Dynamically populated -->
+            </article>
+        </main>
+    </div>
+
+    <!-- Script Configuration -->
+    <script>
+        const LESSONS = [
+            { id: '01-agent-foundations', title: '1. Foundations of Agentic AI', path: 'lessons/01-agent-foundations.md' },
+            { id: '02-single-agents', title: '2. Single-Agent Design', path: 'lessons/02-single-agents.md' },
+            { id: '03-multi-agent-systems', title: '3. Multi-Agent Systems', path: 'lessons/03-multi-agent-systems.md' },
+            { id: '04-model-context-protocol', title: '4. Model Context Protocol', path: 'lessons/04-model-context-protocol.md' },
+            { id: '05-production-deployment', title: '5. Production & Safety', path: 'lessons/05-production-deployment.md' }
+        ];
+
+        let activeLessonId = '';
+
+        // Configure marked options with highlight.js code parsing
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    return hljs.highlight(code, { language: lang }).value;
+                }
+                return hljs.highlightAuto(code).value;
+            }
+        });
+
+        // Initialize progress state from LocalStorage
+        function getCompletedLessons() {
+            const completed = localStorage.getItem('bootcamp_progress');
+            return completed ? JSON.parse(completed) : [];
+        }
+
+        function toggleLessonProgress(lessonId, isCompleted) {
+            let completed = getCompletedLessons();
+            if (isCompleted) {
+                if (!completed.includes(lessonId)) completed.push(lessonId);
+            } else {
+                completed = completed.filter(id => id !== lessonId);
+            }
+            localStorage.setItem('bootcamp_progress', JSON.stringify(completed));
+            renderSidebar();
+        }
+
+        // Render syllabus list inside sidebar
+        function renderSidebar() {
+            const menu = document.getElementById('curriculum-menu');
+            const completed = getCompletedLessons();
+            menu.innerHTML = '';
+
+            LESSONS.forEach(lesson => {
+                const isCompleted = completed.includes(lesson.id);
+                const isActive = lesson.id === activeLessonId;
+                
+                const a = document.createElement('a');
+                a.href = `#${lesson.id}`;
+                a.className = `flex items-center justify-between px-3 py-2.5 rounded-xl border font-bold text-xs transition-all duration-300 ${
+                    isActive 
+                    ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/20' 
+                    : 'border-slate-800 bg-slate-900/40 text-slate-400 hover:text-white hover:border-slate-700'
+                }`;
+
+                a.innerHTML = `
+                    <span class="truncate pr-2">${lesson.title}</span>
+                    <span class="flex-shrink-0 w-4 h-4 flex items-center justify-center rounded-full border ${
+                        isCompleted
+                        ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400'
+                        : 'border-slate-800 text-transparent'
+                    }">
+                        <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </span>
+                `;
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    loadLesson(lesson.id);
+                };
+                menu.appendChild(a);
+            });
+        }
+
+        // Fetch and parse Markdown file
+        async function loadLesson(lessonId) {
+            activeLessonId = lessonId;
+            window.location.hash = lessonId;
+            renderSidebar();
+
+            const article = document.getElementById('lesson-article');
+            const loader = document.getElementById('content-loader');
+            const checkboxContainer = document.getElementById('completion-trigger-container');
+            const checkbox = document.getElementById('lesson-complete-checkbox');
+
+            article.classList.add('hidden');
+            loader.classList.remove('hidden');
+            checkboxContainer.classList.add('hidden');
+
+            const lesson = LESSONS.find(l => l.id === lessonId);
+            if (!lesson) return;
+
+            try {
+                const response = await fetch(lesson.path);
+                if (!response.ok) throw new Error("Lesson not found");
+                const md = await response.text();
+                
+                article.innerHTML = marked.parse(md);
+                
+                // Trigger highlight.js for all code blocks in container
+                article.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                    addCopyButton(el.parentElement);
+                });
+
+                loader.classList.add('hidden');
+                article.classList.remove('hidden');
+
+                // Configure checkbox status
+                const completed = getCompletedLessons();
+                checkbox.checked = completed.includes(lessonId);
+                checkboxContainer.classList.remove('hidden');
+                checkboxContainer.style.display = 'flex';
+                
+            } catch (err) {
+                console.error("Error loading lesson:", err);
+                if (window.location.protocol === 'file:') {
+                    loader.innerHTML = `
+                        <div class="text-center max-w-xl mx-auto py-10">
+                            <svg class="w-16 h-16 text-yellow-500 mx-auto mb-6 opacity-80" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            <h3 class="text-xl font-extrabold text-white mb-3 tracking-tight">Local Browser Security Restriction</h3>
+                            <p class="text-sm text-slate-400 mb-6 leading-relaxed">Standard browsers block network fetches when loading pages directly from the local file system (<code>file://</code> protocol) due to CORS security sandboxing.</p>
+                            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 text-left font-mono text-xs space-y-3 bg-slate-950/40">
+                                <p class="text-blue-400 font-bold">// Resolve by serving this folder with a local web server:</p>
+                                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 flex flex-wrap gap-2 items-center justify-between">
+                                    <code class="text-slate-300">npx serve .</code>
+                                    <span class="text-slate-600">or</span>
+                                    <code class="text-slate-300">python -m http.server</code>
+                                </div>
+                                <p class="text-slate-500 text-[11px] leading-relaxed">Once started, open the local URL (e.g. <span class="text-blue-500">http://localhost:3000</span>) in your browser.</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    loader.innerHTML = '<div class="text-red-400 font-bold">FAILED TO LOAD LESSON MODULE. PLEASE RETRY.</div>';
+                }
+            }
+        }
+
+        // Add visual copy buttons to code blocks
+        function addCopyButton(preElement) {
+            if (preElement.querySelector('.copy-code-btn')) return;
+            
+            preElement.classList.add('relative');
+            const btn = document.createElement('button');
+            btn.className = 'copy-code-btn absolute top-3 right-3 text-slate-500 hover:text-white bg-slate-900 border border-slate-800 rounded px-2.5 py-1 text-[10px] font-mono transition';
+            btn.textContent = 'Copy';
+            btn.onclick = async () => {
+                const code = preElement.querySelector('code').innerText;
+                try {
+                    await navigator.clipboard.writeText(code);
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('text-emerald-400', 'border-emerald-500/30');
+                    setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('text-emerald-400', 'border-emerald-500/30');
+                    }, 2000);
+                } catch (err) {
+                    btn.textContent = 'Failed';
+                }
+            };
+            preElement.appendChild(btn);
+        }
+
+        // Setup Event Listeners
+        document.getElementById('lesson-complete-checkbox').onchange = (e) => {
+            toggleLessonProgress(activeLessonId, e.target.checked);
+        };
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            const startLesson = LESSONS.some(l => l.id === hash) ? hash : LESSONS[0].id;
+            loadLesson(startLesson);
+        });
+    </script>
+</body>
+</html>

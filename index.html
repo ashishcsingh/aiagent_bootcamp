@@ -273,18 +273,24 @@
                     }
                 });
 
-                if (mermaidBlocks.length > 0) {
-                    await mermaid.run();
-                }
-                
                 // Trigger highlight.js for all code blocks in container
                 article.querySelectorAll('pre code').forEach((el) => {
                     hljs.highlightElement(el);
                     addCopyButton(el.parentElement);
                 });
 
+                // Unhide the article BEFORE rendering Mermaid diagrams so that elements
+                // are visible in the DOM, allowing Mermaid to calculate SVG bounds/layout.
                 loader.classList.add('hidden');
                 article.classList.remove('hidden');
+
+                if (mermaidBlocks.length > 0) {
+                    try {
+                        await mermaid.run();
+                    } catch (mermaidError) {
+                        console.error("Mermaid diagram rendering failed:", mermaidError);
+                    }
+                }
 
                 // Configure checkbox status
                 const completed = getCompletedLessons();

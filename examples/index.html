@@ -4,6 +4,10 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QP4ETDCGQ1"></script>
     <script>
+      // Enforce trailing slash for examples directory to ensure relative paths resolve correctly
+      if (window.location.pathname.endsWith('/examples')) {
+          window.location.replace(window.location.pathname + '/' + window.location.search + window.location.hash);
+      }
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -68,6 +72,9 @@
         .glow-blue {
             box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.15);
         }
+        .glow-emerald {
+            box-shadow: 0 0 40px -10px rgba(16, 185, 129, 0.15);
+        }
     </style>
 </head>
 <body class="antialiased text-slate-300 min-h-screen flex flex-col font-sans selection:bg-blue-500 selection:text-white">
@@ -110,6 +117,57 @@
             </p>
         </div>
 
+        <!-- API Key Configuration Section -->
+        <div class="glass-panel p-6 rounded-2xl border-blue-500/20 bg-blue-950/10 flex flex-col gap-5">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20 font-mono text-base">🔑</div>
+                <div>
+                    <h2 class="text-base font-bold text-white">Gemini API Key Configuration (Production SDK)</h2>
+                    <p class="text-xs text-slate-400">Learn how and where to populate your API key to run production examples locally.</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-slate-800/60">
+                <!-- Method A -->
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-[10px] font-bold">A</span>
+                        <h3 class="text-xs font-bold text-white uppercase tracking-wider">Method A: Set Environment Variable (Recommended)</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        All Production SDK examples are pre-configured to securely read your API key from the environment. Open your terminal and run:
+                    </p>
+                    <div class="flex items-center justify-between text-xs font-mono bg-slate-950/80 p-2.5 rounded-lg border border-slate-900 mt-1">
+                        <span class="text-blue-400 select-all">export GEMINI_API_KEY="your_api_key_here"</span>
+                        <button onclick="copyCommand(this, 'export GEMINI_API_KEY=\'your_api_key_here\'')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
+                    </div>
+                </div>
+
+                <!-- Method B -->
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-[10px] font-bold">B</span>
+                        <h3 class="text-xs font-bold text-white uppercase tracking-wider">Method B: Hardcode in Script (Local Dev Only)</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Alternatively, you can open the python script and directly pass your API key to the client initialization block:
+                    </p>
+                    <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-900 font-mono text-[10px] text-slate-400 space-y-1 mt-1 leading-normal">
+                        <div><span class="text-slate-600"># Find client initialization in the script:</span></div>
+                        <div class="flex justify-between items-center bg-red-950/20 px-1 py-0.5 rounded border-l-2 border-red-500/60 my-0.5">
+                            <span>- api_key = os.environ.get("GEMINI_API_KEY")</span>
+                            <span class="text-[8px] uppercase font-bold text-red-500/80">Remove</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-emerald-950/20 px-1 py-0.5 rounded border-l-2 border-emerald-500/60 my-0.5">
+                            <span>+ api_key = "AIzaSyYourGeminiAPIKeyHere"</span>
+                            <span class="text-[8px] uppercase font-bold text-emerald-500/80">Add Key</span>
+                        </div>
+                        <div>client = genai.Client(api_key=api_key)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Examples Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -141,9 +199,26 @@
                         <span class="text-slate-400 select-all">python examples/01_react_loop.py</span>
                         <button onclick="copyCommand(this, 'python examples/01_react_loop.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-3 text-xs">
-                        <a href="01_react_loop.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
-                        <button onclick="runLiveCode('01_react_loop.py', 'ReAct (Reason + Action) Loop')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
+                    <div class="flex gap-2 text-xs">
+                        <a href="01_react_loop.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
+                        <a href="01_react_loop.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
+                        <button onclick="runLiveCode('01_react_loop.py', 'ReAct (Reason + Action) Loop')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    </div>
+                    <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
+                        <a href="01_react_loop_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            View Production SDK
+                        </a>
+                        <span class="text-slate-700">|</span>
+                        <a href="01_react_loop_real.py" download class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download Production SDK
+                        </a>
                     </div>
                 </div>
             </div>
@@ -176,9 +251,26 @@
                         <span class="text-slate-400 select-all">python examples/02_mcp_server.py</span>
                         <button onclick="copyCommand(this, 'python examples/02_mcp_server.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-3 text-xs">
-                        <a href="02_mcp_server.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
-                        <button onclick="runLiveCode('02_mcp_server.py', 'Model Context Protocol Server')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
+                    <div class="flex gap-2 text-xs">
+                        <a href="02_mcp_server.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
+                        <a href="02_mcp_server.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
+                        <button onclick="runLiveCode('02_mcp_server.py', 'Model Context Protocol Server')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    </div>
+                    <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
+                        <a href="02_mcp_server_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            View Production SDK
+                        </a>
+                        <span class="text-slate-700">|</span>
+                        <a href="02_mcp_server_real.py" download class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download Production SDK
+                        </a>
                     </div>
                 </div>
             </div>
@@ -211,9 +303,26 @@
                         <span class="text-slate-400 select-all">python examples/03_crewai_collaboration.py</span>
                         <button onclick="copyCommand(this, 'python examples/03_crewai_collaboration.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-3 text-xs">
-                        <a href="03_crewai_collaboration.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
-                        <button onclick="runLiveCode('03_crewai_collaboration.py', 'CrewAI Collaboration Workflow')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
+                    <div class="flex gap-2 text-xs">
+                        <a href="03_crewai_collaboration.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
+                        <a href="03_crewai_collaboration.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
+                        <button onclick="runLiveCode('03_crewai_collaboration.py', 'CrewAI Collaboration Workflow')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    </div>
+                    <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
+                        <a href="03_crewai_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            View Production SDK
+                        </a>
+                        <span class="text-slate-700">|</span>
+                        <a href="03_crewai_real.py" download class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download Production SDK
+                        </a>
                     </div>
                 </div>
             </div>
@@ -246,29 +355,44 @@
                         <span class="text-slate-400 select-all">python examples/04_langgraph_workflow.py</span>
                         <button onclick="copyCommand(this, 'python examples/04_langgraph_workflow.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-3 text-xs">
-                        <a href="04_langgraph_workflow.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
-                        <button onclick="runLiveCode('04_langgraph_workflow.py', 'LangGraph Stateful Cyclic Network')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
+                    <div class="flex gap-2 text-xs">
+                        <a href="04_langgraph_workflow.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
+                        <a href="04_langgraph_workflow.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
+                        <button onclick="runLiveCode('04_langgraph_workflow.py', 'LangGraph Stateful Cyclic Network')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    </div>
+                    <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
+                        <a href="04_langgraph_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            View Production SDK
+                        </a>
+                        <span class="text-slate-700">|</span>
+                        <a href="04_langgraph_real.py" download class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download Production SDK
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Card 05 -->
-            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group md:col-span-2">
-                <div class="flex flex-col md:flex-row gap-6 justify-between">
-                    <div class="flex flex-col gap-4 md:w-2/3">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 05</span>
-                            <span class="text-xs font-mono text-slate-500">05_autogen_chat.py</span>
-                        </div>
-                        <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
-                            Microsoft AutoGen Conversational Session
-                        </h2>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            A multi-agent conversational setup featuring an `AssistantAgent` (coder) and a `UserProxyAgent` (code executor). Demonstrates automated message-passing loops where the coder drafts a division function, the proxy reports a division-by-zero crash, and the coder outputs a fixed script which terminates successfully.
-                        </p>
+            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group">
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 05</span>
+                        <span class="text-xs font-mono text-slate-500">05_autogen_chat.py</span>
                     </div>
-                    <div class="space-y-1.5 md:w-1/3">
+                    <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                        Microsoft AutoGen Conversational Session
+                    </h2>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        A multi-agent conversational setup featuring an `AssistantAgent` (coder) and a `UserProxyAgent` (code executor). Demonstrates automated message-passing loops where the coder drafts a division function, the proxy reports a division-by-zero crash, and the coder outputs a fixed script which terminates successfully.
+                    </p>
+                    <div class="space-y-1.5">
                         <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Demonstrated Concepts:</h3>
                         <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
                             <li>Conversational message-passing agent loops</li>
@@ -278,14 +402,83 @@
                     </div>
                 </div>
                 
-                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-                    <div class="flex-1 flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
+                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col gap-3">
+                    <div class="flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
                         <span class="text-slate-400 select-all">python examples/05_autogen_chat.py</span>
                         <button onclick="copyCommand(this, 'python examples/05_autogen_chat.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-3 text-xs md:w-[20rem]">
-                        <a href="05_autogen_chat.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
-                        <button onclick="runLiveCode('05_autogen_chat.py', 'Microsoft AutoGen Conversational Session')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
+                    <div class="flex gap-2 text-xs">
+                        <a href="05_autogen_chat.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
+                        <a href="05_autogen_chat.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
+                        <button onclick="runLiveCode('05_autogen_chat.py', 'Microsoft AutoGen Conversational Session')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    </div>
+                    <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
+                        <a href="05_autogen_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            View Production SDK
+                        </a>
+                        <span class="text-slate-700">|</span>
+                        <a href="05_autogen_real.py" download class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download Production SDK
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 06 -->
+            <div class="glass-panel p-6 rounded-2xl border-slate-800/80 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40 glow-blue group">
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-900/30">Example 06</span>
+                        <span class="text-xs font-mono text-slate-500">06_self_reflection.py</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                        Self-Correction Coding Agent
+                    </h2>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        An autonomous program synthesis agent. Illustrates how an agent drafts Python code, attempts execution, catches compiler/runtime exceptions (tracebacks), and feeds the error details back into the LLM context to self-correct its bugs.
+                    </p>
+                    <div class="space-y-1.5">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Demonstrated Concepts:</h3>
+                        <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                            <li>Dynamic program synthesis and local namespaces (`exec()`)</li>
+                            <li>Exception catching and traceback formatting buffers</li>
+                            <li>Iterative agent self-correction based on runtime validation feedback</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-slate-800/80 mt-6 pt-4 flex flex-col gap-3">
+                    <div class="flex items-center justify-between text-xs font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-900">
+                        <span class="text-slate-400 select-all">python examples/06_self_reflection.py</span>
+                        <button onclick="copyCommand(this, 'python examples/06_self_reflection.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
+                    </div>
+                    <div class="flex gap-2 text-xs">
+                        <a href="06_self_reflection.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
+                        <a href="06_self_reflection.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
+                        <button onclick="runLiveCode('06_self_reflection.py', 'Self-Correction Coding Agent')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    </div>
+                    <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
+                        <a href="06_self_reflection_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            View Production SDK
+                        </a>
+                        <span class="text-slate-700">|</span>
+                        <a href="06_self_reflection_real.py" download class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download Production SDK
+                        </a>
                     </div>
                 </div>
             </div>

@@ -96,33 +96,104 @@ def handle_request(req: dict) -> dict:
     }
 
 # =====================================================================
-# 3. Main Loop
+# 3. Simulation (for Pyodide/non-TTY environments)
+# =====================================================================
+
+def run_simulation():
+    """Run a simulated MCP client-server conversation when stdin is not available."""
+    log_debug("Starting Simulated MCP Client Session...")
+    
+    mock_requests = [
+        # 1. List tools
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "tools/list"
+        },
+        # 2. Call tool with London
+        {
+            "jsonrpc": "2.0",
+            "id": 2,
+            "method": "tools/call",
+            "params": {
+                "name": "get_weather",
+                "arguments": {
+                    "city": "London"
+                }
+            }
+        },
+        # 3. Call tool with San Francisco
+        {
+            "jsonrpc": "2.0",
+            "id": 3,
+            "method": "tools/call",
+            "params": {
+                "name": "get_weather",
+                "arguments": {
+                    "city": "San Francisco"
+                }
+            }
+        },
+        # 4. Unknown tool error handling
+        {
+            "jsonrpc": "2.0",
+            "id": 4,
+            "method": "tools/call",
+            "params": {
+                "name": "unknown_tool",
+                "arguments": {}
+            }
+        }
+    ]
+    
+    for req in mock_requests:
+        log_debug(f"\n[Client Request] --> {json.dumps(req)}")
+        response = handle_request(req)
+        sys.stdout.write(json.dumps(response) + "\n")
+        sys.stdout.flush()
+        log_debug(f"[Server Response] <-- {json.dumps(response)}")
+        
+    log_debug("\nSimulated MCP Client Session completed.")
+
+# =====================================================================
+# 4. Main Loop
 # =====================================================================
 
 def main():
     log_debug("MCP Server started. Waiting for stdio messages...")
     
+    # In Pyodide/WebAssembly (sys.platform == 'emscripten') or other environments
+    # without standard input capabilities, we fall back to a simulation.
+    if sys.platform == 'emscripten':
+        log_debug("WebAssembly environment detected. Running in simulation mode...")
+        run_simulation()
+        return
+
     # Read line-by-line from stdin
-    for line in sys.stdin:
-        if not line.strip():
-            continue
-        try:
-            request = json.loads(line)
-            response = handle_request(request)
-            
-            # Write JSON-RPC response to stdout
-            sys.stdout.write(json.dumps(response) + "\n")
-            sys.stdout.flush()
-        except json.JSONDecodeError:
-            err_resp = {
-                "jsonrpc": "2.0",
-                "id": None,
-                "error": {"code": -32700, "message": "Parse error: invalid JSON input."}
-            }
-            sys.stdout.write(json.dumps(err_resp) + "\n")
-            sys.stdout.flush()
-        except Exception as e:
-            log_debug(f"Unhandled error: {str(e)}")
+    try:
+        for line in sys.stdin:
+            if not line.strip():
+                continue
+            try:
+                request = json.loads(line)
+                response = handle_request(request)
+                
+                # Write JSON-RPC response to stdout
+                sys.stdout.write(json.dumps(response) + "\n")
+                sys.stdout.flush()
+            except json.JSONDecodeError:
+                err_resp = {
+                    "jsonrpc": "2.0",
+                    "id": None,
+                    "error": {"code": -32700, "message": "Parse error: invalid JSON input."}
+                }
+                sys.stdout.write(json.dumps(err_resp) + "\n")
+                sys.stdout.flush()
+            except Exception as e:
+                log_debug(f"Unhandled error: {str(e)}")
+    except OSError as e:
+        log_debug(f"stdin I/O error ({str(e)}). Falling back to simulation mode...")
+        run_simulation()
 
 if __name__ == "__main__":
     main()

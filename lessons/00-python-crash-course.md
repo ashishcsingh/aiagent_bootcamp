@@ -37,7 +37,75 @@ def calculate_agent_cost(
 
 ---
 
-## 2. Dictionary & JSON Operations
+## 2. Core Data Structures & Constructs
+
+AI Agents rely heavily on selecting the correct data structure to manage agent state, history, and active tools.
+
+### Lists, Sets, and Tuples
+*   **Lists (`list`)**: Used for ordered, mutable sequences (e.g., chronological message history, chat history logs).
+*   **Sets (`set`)**: Used for unordered collections of unique elements (e.g., tracking visited URLs to prevent scraping loops, or validating allowed tool names).
+*   **Tuples (`tuple`)**: Used for ordered, immutable sequences (e.g., a frozen coordinate or a fixed pair of `(agent_name, tool_name)`).
+
+```python
+# Chronological chat history (mutable, ordered list)
+chat_history = [
+    {"role": "user", "content": "Help me find AI news."},
+    {"role": "assistant", "content": "Sure! I will search the web."}
+]
+
+# Track visited pages to prevent infinite loops (set for O(1) lookups and uniqueness)
+visited_urls = {"https://aiagent.org", "https://aiagent.org/bootcamp"}
+
+def process_url(url: str):
+    if url in visited_urls:
+        print(f"Skipping already visited URL: {url}")
+        return
+    visited_urls.add(url)
+    print(f"Processing: {url}")
+
+# Agent configuration pair (immutable, structured tuple)
+agent_config = ("Researcher", "GPT-4o")
+```
+
+### Pattern Matching (`match-case`)
+Introduced in Python 3.10, structural pattern matching is the cleanest way to route an agent's planning decisions based on the type of action/tool call received:
+
+```python
+def route_agent_action(action: dict):
+    # Action looks like: {"type": "tool_call", "name": "web_search", "query": "..."}
+    # Or: {"type": "respond", "content": "..."}
+    
+    match action:
+        case {"type": "tool_call", "name": "web_search", "query": q}:
+            return f"Executing web search for: '{q}'"
+        case {"type": "tool_call", "name": "database_query", "sql": sql}:
+            return f"Executing SQL query: {sql}"
+        case {"type": "respond", "content": text}:
+            return f"Final Answer to User: {text}"
+        case _:
+            raise ValueError("Unknown agent action type")
+```
+
+### Generator Expressions (Streaming)
+Agents often stream responses token-by-token from LLMs. Generators let you process this stream memory-efficiently:
+
+```python
+from typing import Generator
+
+def stream_tokens() -> Generator[str, None, None]:
+    tokens = ["Thinking...", " Agentic", " AI", " is", " the", " future."]
+    for token in tokens:
+        yield token
+
+# Consuming the token stream
+for chunk in stream_tokens():
+    print(chunk, end="", flush=True)
+print()
+```
+
+---
+
+## 3. Dictionary & JSON Operations
 
 Agents consistently inspect, parse, and rebuild nested JSON structures received from model outputs or API responses.
 
@@ -73,7 +141,7 @@ print(f"Active tools to call: {active_tools}")
 
 ---
 
-## 3. Asynchronous Programming (`asyncio`)
+## 4. Asynchronous Programming (`asyncio`)
 
 AI Agents spend a significant amount of time waiting for network responses (LLM completions, database transactions, web page reads). Using **asynchronous programming** allows agents to execute multiple calls concurrently without freezing execution.
 
@@ -111,7 +179,7 @@ if __name__ == "__main__":
 
 ---
 
-## 4. Resilient Error Handling (Try-Except)
+## 5. Resilient Error Handling (Try-Except)
 
 Because agents are autonomous, a single uncaught exception inside a tool execution can crash the entire planning loop. We must wrap critical processes in robust `try-except` guardrails.
 

@@ -17,22 +17,22 @@ There are three primary collaboration structures:
 
 ### A. Sequential (Pipeline)
 Tasks flow in a fixed, linear order from one agent to the next.
-```
-[User] -> [Researcher Agent] -> [Writer Agent] -> [Editor Agent] -> [Output]
+```mermaid
+graph LR
+    User([User]) --> Researcher[Researcher Agent]
+    Researcher --> Writer[Writer Agent]
+    Writer --> Editor[Editor Agent]
+    Editor --> Output([Output])
 ```
 
 ### B. Hierarchical (Manager-Worker)
 A manager agent delegates sub-tasks to worker agents, gathers their observations, and reports the final answer.
-```
-                +-------------------+
-                |   Manager Agent   |
-                +----+---------+----+
-                     |         |
-         +-----------+         +-----------+
-         v                                 v
-+--------+--------+               +--------+--------+
-|  Writer Agent   |               | Researcher Agent|
-+-----------------+               +-----------------+
+```mermaid
+graph TD
+    Manager[Manager Agent] -->|Delegate Task| Worker1[Writer Agent]
+    Manager -->|Delegate Task| Worker2[Researcher Agent]
+    Worker1 -->|Submit Work| Manager
+    Worker2 -->|Submit Notes| Manager
 ```
 
 ### C. Graph (Conversational / Networked)

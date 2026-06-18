@@ -8,23 +8,16 @@ An **AI Agent** is an autonomous entity powered by a foundation model (LLM) that
 
 Unlike traditional software (which follows hardcoded rules) or standard chat models (which wait for the next user query), an agent is **stateful** and operates inside a **continuous loop**:
 
-```
-        +-----------------------------------+
-        |               User                |
-        +-----------------+-----------------+
-                          | Goal
-                          v
-        +-----------------+-----------------+
-        |           Agent Loop              |
-        |  1. Planning (What to do next?)   |
-        |  2. Execution (Call tool / API)   |
-        |  3. Observation (Inspect result)  |
-        +-----------------+-----------------+
-                          | Final Answer
-                          v
-        +-----------------+-----------------+
-        |              User               |
-        +-----------------------------------+
+```mermaid
+graph TD
+    User([User]) -->|Goal| Agent[Agent Loop]
+    subgraph Loop [Agent Execution Loop]
+        Agent --> Plan[1. Planning: What to do next?]
+        Plan --> Execute[2. Execution: Call Tool / API]
+        Execute --> Observe[3. Observation: Inspect Result]
+        Observe -->|Refine Plan| Plan
+    end
+    Observe -->|Final Answer| User
 ```
 
 ---
@@ -33,16 +26,11 @@ Unlike traditional software (which follows hardcoded rules) or standard chat mod
 
 A robust agent is composed of four primary elements:
 
-```
-                    +-------------------+
-                    |    Brain (LLM)    |
-                    +---------+---------+
-                              |
-       +----------------------+----------------------+
-       |                      |                      |
-+------+------+        +------+------+        +------+------+
-|  Planning   |        |   Memory    |        |    Tools    |
-+--------------+        +--------------+        +--------------+
+```mermaid
+graph TD
+    Brain[Brain: LLM Core CPU] --> Planning[Planning: ReAct & Self-Reflection]
+    Brain --> Memory[Memory: Short-term Context & Long-term RAG]
+    Brain --> Tools[Tools: APIs, Search & Web Services]
 ```
 
 ### A. The Brain (The Core LLM)

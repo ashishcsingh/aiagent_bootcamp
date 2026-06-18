@@ -14,6 +14,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Pyodide WebAssembly Python Runtime -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
 
     <!-- Tailwind Config for Theme Alignment -->
     <script>
@@ -122,7 +125,8 @@
                         <button onclick="copyCommand(this, 'python examples/01_react_loop.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
                     <div class="flex gap-3 text-xs">
-                        <a href="01_react_loop.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                        <a href="01_react_loop.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
+                        <button onclick="runLiveCode('01_react_loop.py', 'ReAct (Reason + Action) Loop')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
                     </div>
                 </div>
             </div>
@@ -156,7 +160,8 @@
                         <button onclick="copyCommand(this, 'python examples/02_mcp_server.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
                     <div class="flex gap-3 text-xs">
-                        <a href="02_mcp_server.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                        <a href="02_mcp_server.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
+                        <button onclick="runLiveCode('02_mcp_server.py', 'Model Context Protocol Server')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
                     </div>
                 </div>
             </div>
@@ -190,7 +195,8 @@
                         <button onclick="copyCommand(this, 'python examples/03_crewai_collaboration.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
                     <div class="flex gap-3 text-xs">
-                        <a href="03_crewai_collaboration.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                        <a href="03_crewai_collaboration.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
+                        <button onclick="runLiveCode('03_crewai_collaboration.py', 'CrewAI Collaboration Workflow')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
                     </div>
                 </div>
             </div>
@@ -224,7 +230,8 @@
                         <button onclick="copyCommand(this, 'python examples/04_langgraph_workflow.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
                     <div class="flex gap-3 text-xs">
-                        <a href="04_langgraph_workflow.py" download class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                        <a href="04_langgraph_workflow.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
+                        <button onclick="runLiveCode('04_langgraph_workflow.py', 'LangGraph Stateful Cyclic Network')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
                     </div>
                 </div>
             </div>
@@ -259,8 +266,9 @@
                         <span class="text-slate-400 select-all">python examples/05_autogen_chat.py</span>
                         <button onclick="copyCommand(this, 'python examples/05_autogen_chat.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-3 text-xs md:w-64">
-                        <a href="05_autogen_chat.py" download class="flex-1 text-center py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Download Code</a>
+                    <div class="flex gap-3 text-xs md:w-[20rem]">
+                        <a href="05_autogen_chat.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Code</a>
+                        <button onclick="runLiveCode('05_autogen_chat.py', 'Microsoft AutoGen Conversational Session')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Code Live &rarr;</button>
                     </div>
                 </div>
             </div>
@@ -268,6 +276,25 @@
         </div>
 
     </main>
+
+    <!-- Terminal Overlay Modal -->
+    <div id="terminal-modal" class="fixed inset-0 z-50 bg-[#020617]/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-3xl h-[32rem] rounded-3xl border-slate-800 flex flex-col overflow-hidden shadow-2xl relative">
+            <!-- Terminal Header -->
+            <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center flex-shrink-0">
+                <div class="flex items-center gap-3">
+                    <span id="terminal-status-dot" class="w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse"></span>
+                    <span id="terminal-title" class="text-xs font-mono font-bold text-slate-400">Terminal - Executing Script</span>
+                </div>
+                <button onclick="closeTerminal()" class="text-slate-500 hover:text-white transition text-xs font-mono bg-slate-900 border border-slate-800 px-3.5 py-1 rounded-lg">Close Terminal</button>
+            </div>
+            
+            <!-- Terminal Console Logs Output -->
+            <div id="terminal-console" class="flex-1 bg-black p-6 font-mono text-xs overflow-y-auto text-emerald-400 space-y-1 select-text selection:bg-slate-800">
+                <!-- Executed outputs append here -->
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="mt-auto border-t border-slate-950 py-8 bg-slate-950/40 text-center text-xs text-slate-500 font-mono">
@@ -288,6 +315,92 @@
             }).catch(err => {
                 console.error('Failed to copy text: ', err);
             });
+        }
+
+        // WebAssembly Terminal Runner Logic
+        let pyodideInstance = null;
+        let isPyodideLoading = false;
+
+        async function initPyodide() {
+            if (pyodideInstance) return pyodideInstance;
+            if (isPyodideLoading) {
+                while (isPyodideLoading) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                return pyodideInstance;
+            }
+            
+            isPyodideLoading = true;
+            appendTerminalLog('[System] Initializing WebAssembly Python environment (this may take a few seconds)...', 'text-blue-400');
+            
+            try {
+                pyodideInstance = await loadPyodide({
+                    stdout: (text) => appendTerminalLog(text, 'text-emerald-400'),
+                    stderr: (text) => appendTerminalLog(text, 'text-red-400')
+                });
+                
+                appendTerminalLog('[System] WebAssembly Python environment ready.', 'text-blue-400');
+            } catch (err) {
+                appendTerminalLog('[System Error] Failed to initialize Pyodide: ' + err.message, 'text-red-500 font-bold');
+            } finally {
+                isPyodideLoading = false;
+            }
+            return pyodideInstance;
+        }
+
+        function appendTerminalLog(text, colorClass = 'text-emerald-400') {
+            const consoleEl = document.getElementById('terminal-console');
+            if (!consoleEl) return;
+            
+            const line = document.createElement('div');
+            line.className = `${colorClass} whitespace-pre-wrap leading-relaxed`;
+            line.textContent = text;
+            consoleEl.appendChild(line);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        async function runLiveCode(filepath, title) {
+            const modal = document.getElementById('terminal-modal');
+            const titleEl = document.getElementById('terminal-title');
+            const consoleEl = document.getElementById('terminal-console');
+            const dot = document.getElementById('terminal-status-dot');
+
+            modal.style.display = 'flex';
+            titleEl.textContent = `Terminal - Executing ${filepath}`;
+            consoleEl.innerHTML = '';
+            dot.className = 'w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse';
+
+            appendTerminalLog(`[System] Fetching source code for ${filepath}...`, 'text-blue-400');
+
+            try {
+                const response = await fetch(filepath);
+                if (!response.ok) throw new Error(`Could not fetch script: ${response.statusText}`);
+                const code = await response.text();
+
+                appendTerminalLog(`[System] Source code fetched successfully. Starting compilation...`, 'text-blue-400');
+                
+                const pyodide = await initPyodide();
+                if (!pyodide) {
+                    throw new Error("Python WebAssembly runtime initialization failed.");
+                }
+
+                dot.className = 'w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse';
+                appendTerminalLog(`[System] Running python script: ${filepath}\n` + '='*60 + '\n', 'text-slate-500');
+
+                // Execute Python code in Pyodide
+                await pyodide.runPythonAsync(code);
+
+                dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
+                appendTerminalLog('\n' + '='*60 + `\n[System] Script execution finished successfully.`, 'text-emerald-500 font-bold');
+            } catch (err) {
+                dot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+                appendTerminalLog('\n' + '='*60 + `\n[System Error] ${err.message}`, 'text-red-500 font-bold');
+            }
+        }
+
+        function closeTerminal() {
+            const modal = document.getElementById('terminal-modal');
+            modal.style.display = 'none';
         }
     </script>
 </body>

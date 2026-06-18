@@ -35,6 +35,10 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    </script>
 </head>
 <body class="antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col hero-bg text-slate-300">
 
@@ -246,6 +250,23 @@
                 const md = await response.text();
                 
                 article.innerHTML = marked.parse(md);
+                
+                // Intercept and render Mermaid diagrams
+                const mermaidBlocks = article.querySelectorAll('.language-mermaid');
+                mermaidBlocks.forEach((block) => {
+                    const code = block.textContent || block.innerText;
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid my-6 p-6 rounded-2xl border border-slate-800/80 bg-slate-950/40 flex justify-center overflow-auto';
+                    containerDiv.textContent = code.trim();
+                    const pre = block.parentElement;
+                    if (pre && pre.tagName === 'PRE') {
+                        pre.parentElement.replaceChild(containerDiv, pre);
+                    }
+                });
+
+                if (mermaidBlocks.length > 0) {
+                    await mermaid.run();
+                }
                 
                 // Trigger highlight.js for all code blocks in container
                 article.querySelectorAll('pre code').forEach((el) => {

@@ -8,24 +8,29 @@ Introduced as a universal standard, **Model Context Protocol (MCP)** is an open-
 
 Instead of writing separate integrations for VS Code, Claude Desktop, LangChain, and custom systems, developers can write **one MCP server** that exposes tools, prompts, and resources. Any **MCP client** can instantly consume them:
 
-```
-+-------------+      +------------+      +-------------+
-| Claude Desktop |   | VS Code    |   | Custom Agent|
-+------+------+      +-----+------+      +------+------+
-       |                   |                    |
-       +-------------------+--------------------+
-                           | MCP (JSON-RPC)
-                           v
-                     +-----+------+
-                     | MCP Host   |
-                     +-----+------+
-                           |
-       +-------------------+--------------------+
-       |                   |                    |
-       v                   v                    v
-+------+------+      +-----+------+      +------+------+
-| Git Server  |      | SQL DB Server|     | Filesystem  |
-+-------------+      +------------+      +-------------+
+```mermaid
+graph TD
+    subgraph Clients [MCP Clients / Hosts]
+        Claude[Claude Desktop]
+        VSCode[VS Code]
+        Custom[Custom Agent]
+    end
+
+    Host[MCP Host / Client]
+
+    subgraph Servers [MCP Servers]
+        Git[Git Server]
+        SQL[SQL DB Server]
+        FS[Filesystem]
+    end
+
+    Claude -->|JSON-RPC| Host
+    VSCode -->|JSON-RPC| Host
+    Custom -->|JSON-RPC| Host
+
+    Host -->|stdio / HTTP| Git
+    Host -->|stdio / HTTP| SQL
+    Host -->|stdio / HTTP| FS
 ```
 
 ---

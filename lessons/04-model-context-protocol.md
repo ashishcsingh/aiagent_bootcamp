@@ -57,3 +57,22 @@ An MCP server can declare three main resources:
 ## 4. Setting Up an MCP Server
 
 We can build MCP servers in Python or TypeScript. In the examples folder, you can view `examples/02_mcp_server.py` to inspect a minimal Python MCP server. To run an MCP server in your local IDE, you register the command inside the client's configuration file (e.g., `claude_desktop_config.json`).
+
+---
+
+## 5. Hands-on Playground
+
+Run and inspect the Model Context Protocol stdio-based server code directly in your browser:
+
+<div class="my-6 p-5 glass-panel rounded-2xl border-blue-500/20 bg-blue-950/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+        <span class="text-2xl">⚡</span>
+        <div>
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider font-mono">MCP Server Interactive Sandbox</h4>
+            <p class="text-xs text-slate-400 mt-0.5">Explore how the server registers weather tools and handles JSON-RPC standard stdio channels.</p>
+        </div>
+    </div>
+    <button onclick="runLiveCode('02_mcp_server.py', 'Model Context Protocol Server')" class="text-center py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer whitespace-nowrap">
+        Access Sandbox
+    </button>
+</div>

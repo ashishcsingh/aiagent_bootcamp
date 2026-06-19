@@ -73,3 +73,22 @@ In real-world environments, things go wrong. Agents must be resilient to:
 *   **Tool Execution Errors:** If the API or tool throws an exception, we pass the exception description back to the agent as an observation so it can attempt to correct its parameters.
 
 In the code examples folder, you can run `examples/01_react_loop.py` to see a full implementation of this architecture in action.
+
+---
+
+## 4. Hands-on Playground
+
+Run and inspect the ReAct agent design pattern script directly in your browser:
+
+<div class="my-6 p-5 glass-panel rounded-2xl border-blue-500/20 bg-blue-950/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+        <span class="text-2xl">⚡</span>
+        <div>
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider font-mono">ReAct Loop Interactive Sandbox</h4>
+            <p class="text-xs text-slate-400 mt-0.5">Explore how the agent parses prompts, invokes search, and executes iterations.</p>
+        </div>
+    </div>
+    <button onclick="runLiveCode('01_react_loop.py', 'ReAct (Reason + Action) Loop')" class="text-center py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer whitespace-nowrap">
+        Access Sandbox
+    </button>
+</div>

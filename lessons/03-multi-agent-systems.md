@@ -58,3 +58,48 @@ Depending on your design requirements, you can choose from several standard fram
 | **LangGraph** | Cyclic Graphs | Shared state graph (Redux-style) | Complex, cyclic multi-agent software engineering loops |
 | **AutoGen** | Conversational / Dynamic | Message passing | Multi-party debates, interactive simulations |
 | **smolagents** | Code-first | In-context Python execution | Fast execution using LLMs that output Python directly |
+
+---
+
+## 5. Hands-on Playgrounds
+
+Run and inspect the multi-agent patterns live directly in your browser:
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+    <div class="p-5 glass-panel rounded-2xl border-blue-500/10 bg-slate-900/20 flex flex-col justify-between gap-4">
+        <div>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider font-mono">CrewAI Collaboration Sandbox</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Sequential task execution with Researcher and Writer agents collaborating.</p>
+        </div>
+        <button onclick="runLiveCode('03_crewai_collaboration.py', 'CrewAI Collaboration Workflow')" class="w-full text-center py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer">
+            Access Sandbox
+        </button>
+    </div>
+    <div class="p-5 glass-panel rounded-2xl border-blue-500/10 bg-slate-900/20 flex flex-col justify-between gap-4">
+        <div>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider font-mono">LangGraph Stateful Network Sandbox</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Stateful blackboard architecture implementing a cyclic Writer-Critic loop.</p>
+        </div>
+        <button onclick="runLiveCode('04_langgraph_workflow.py', 'LangGraph Stateful Cyclic Network')" class="w-full text-center py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer">
+            Access Sandbox
+        </button>
+    </div>
+    <div class="p-5 glass-panel rounded-2xl border-blue-500/10 bg-slate-900/20 flex flex-col justify-between gap-4">
+        <div>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider font-mono">AutoGen Conversational Sandbox</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Multi-agent conversational session with a coder and UserProxy executor.</p>
+        </div>
+        <button onclick="runLiveCode('05_autogen_chat.py', 'Microsoft AutoGen Conversational Session')" class="w-full text-center py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer">
+            Access Sandbox
+        </button>
+    </div>
+    <div class="p-5 glass-panel rounded-2xl border-blue-500/10 bg-slate-900/20 flex flex-col justify-between gap-4">
+        <div>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider font-mono">Self-Reflection Coding Sandbox</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Autonomous coding agent that executes output and iterates on exceptions.</p>
+        </div>
+        <button onclick="runLiveCode('06_self_reflection.py', 'Self-Correction Coding Agent')" class="w-full text-center py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer">
+            Access Sandbox
+        </button>
+    </div>
+</div>

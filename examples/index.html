@@ -38,6 +38,15 @@
     
     <!-- Pyodide WebAssembly Python Runtime -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js" defer></script>
+    <!-- Monaco Editor Loader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs/loader.min.js"></script>
+    <script>
+        // Disable AMD define globally right after loading Monaco's loader to prevent AMD/UMD conflicts with Pyodide
+        if (window.define && window.define.amd) {
+            window.monacoDefine = window.define;
+            window.define = undefined;
+        }
+    </script>
 
     <!-- Tailwind Config for Theme Alignment -->
     <script>
@@ -199,10 +208,19 @@
                         <span class="text-slate-400 select-all">python examples/01_react_loop.py</span>
                         <button onclick="copyCommand(this, 'python examples/01_react_loop.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-2 text-xs">
-                        <a href="01_react_loop.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
-                        <a href="01_react_loop.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
-                        <button onclick="runLiveCode('01_react_loop.py', 'ReAct (Reason + Action) Loop')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    <div class="flex gap-3 text-xs">
+                        <button onclick="runLiveCode('01_react_loop.py', 'ReAct (Reason + Action) Loop')" class="flex-[2] text-center py-2.5 px-4 rounded-xl bg-slate-900/60 hover:bg-slate-850 text-white font-bold border border-blue-500/30 hover:border-blue-400/50 shadow-md shadow-blue-500/5 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                            <svg class="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Access Interactive Sandbox</span>
+                        </button>
+                        <a href="01_react_loop.py" download class="flex-1 text-center py-2.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-700/50 flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download
+                        </a>
                     </div>
                     <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
                         <a href="01_react_loop_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
@@ -251,10 +269,19 @@
                         <span class="text-slate-400 select-all">python examples/02_mcp_server.py</span>
                         <button onclick="copyCommand(this, 'python examples/02_mcp_server.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-2 text-xs">
-                        <a href="02_mcp_server.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
-                        <a href="02_mcp_server.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
-                        <button onclick="runLiveCode('02_mcp_server.py', 'Model Context Protocol Server')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    <div class="flex gap-3 text-xs">
+                        <button onclick="runLiveCode('02_mcp_server.py', 'Model Context Protocol Server')" class="flex-[2] text-center py-2.5 px-4 rounded-xl bg-slate-900/60 hover:bg-slate-850 text-white font-bold border border-blue-500/30 hover:border-blue-400/50 shadow-md shadow-blue-500/5 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                            <svg class="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Access Interactive Sandbox</span>
+                        </button>
+                        <a href="02_mcp_server.py" download class="flex-1 text-center py-2.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-700/50 flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download
+                        </a>
                     </div>
                     <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
                         <a href="02_mcp_server_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
@@ -303,10 +330,19 @@
                         <span class="text-slate-400 select-all">python examples/03_crewai_collaboration.py</span>
                         <button onclick="copyCommand(this, 'python examples/03_crewai_collaboration.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-2 text-xs">
-                        <a href="03_crewai_collaboration.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
-                        <a href="03_crewai_collaboration.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
-                        <button onclick="runLiveCode('03_crewai_collaboration.py', 'CrewAI Collaboration Workflow')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    <div class="flex gap-3 text-xs">
+                        <button onclick="runLiveCode('03_crewai_collaboration.py', 'CrewAI Collaboration Workflow')" class="flex-[2] text-center py-2.5 px-4 rounded-xl bg-slate-900/60 hover:bg-slate-850 text-white font-bold border border-blue-500/30 hover:border-blue-400/50 shadow-md shadow-blue-500/5 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                            <svg class="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Access Interactive Sandbox</span>
+                        </button>
+                        <a href="03_crewai_collaboration.py" download class="flex-1 text-center py-2.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-700/50 flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download
+                        </a>
                     </div>
                     <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
                         <a href="03_crewai_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
@@ -355,10 +391,19 @@
                         <span class="text-slate-400 select-all">python examples/04_langgraph_workflow.py</span>
                         <button onclick="copyCommand(this, 'python examples/04_langgraph_workflow.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-2 text-xs">
-                        <a href="04_langgraph_workflow.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
-                        <a href="04_langgraph_workflow.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
-                        <button onclick="runLiveCode('04_langgraph_workflow.py', 'LangGraph Stateful Cyclic Network')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    <div class="flex gap-3 text-xs">
+                        <button onclick="runLiveCode('04_langgraph_workflow.py', 'LangGraph Stateful Cyclic Network')" class="flex-[2] text-center py-2.5 px-4 rounded-xl bg-slate-900/60 hover:bg-slate-850 text-white font-bold border border-blue-500/30 hover:border-blue-400/50 shadow-md shadow-blue-500/5 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                            <svg class="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Access Interactive Sandbox</span>
+                        </button>
+                        <a href="04_langgraph_workflow.py" download class="flex-1 text-center py-2.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-700/50 flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download
+                        </a>
                     </div>
                     <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
                         <a href="04_langgraph_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
@@ -407,10 +452,19 @@
                         <span class="text-slate-400 select-all">python examples/05_autogen_chat.py</span>
                         <button onclick="copyCommand(this, 'python examples/05_autogen_chat.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-2 text-xs">
-                        <a href="05_autogen_chat.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
-                        <a href="05_autogen_chat.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
-                        <button onclick="runLiveCode('05_autogen_chat.py', 'Microsoft AutoGen Conversational Session')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    <div class="flex gap-3 text-xs">
+                        <button onclick="runLiveCode('05_autogen_chat.py', 'Microsoft AutoGen Conversational Session')" class="flex-[2] text-center py-2.5 px-4 rounded-xl bg-slate-900/60 hover:bg-slate-850 text-white font-bold border border-blue-500/30 hover:border-blue-400/50 shadow-md shadow-blue-500/5 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                            <svg class="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Access Interactive Sandbox</span>
+                        </button>
+                        <a href="05_autogen_chat.py" download class="flex-1 text-center py-2.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-700/50 flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download
+                        </a>
                     </div>
                     <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
                         <a href="05_autogen_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
@@ -459,10 +513,19 @@
                         <span class="text-slate-400 select-all">python examples/06_self_reflection.py</span>
                         <button onclick="copyCommand(this, 'python examples/06_self_reflection.py')" class="text-slate-500 hover:text-white transition px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">Copy</button>
                     </div>
-                    <div class="flex gap-2 text-xs">
-                        <a href="06_self_reflection.py" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-800">View Sandbox</a>
-                        <a href="06_self_reflection.py" download class="flex-1 text-center py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition">Download Sandbox</a>
-                        <button onclick="runLiveCode('06_self_reflection.py', 'Self-Correction Coding Agent')" class="flex-1 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition">Run Sandbox Live &rarr;</button>
+                    <div class="flex gap-3 text-xs">
+                        <button onclick="runLiveCode('06_self_reflection.py', 'Self-Correction Coding Agent')" class="flex-[2] text-center py-2.5 px-4 rounded-xl bg-slate-900/60 hover:bg-slate-850 text-white font-bold border border-blue-500/30 hover:border-blue-400/50 shadow-md shadow-blue-500/5 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                            <svg class="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Access Interactive Sandbox</span>
+                        </button>
+                        <a href="06_self_reflection.py" download class="flex-1 text-center py-2.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold transition border border-slate-700/50 flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                            Download
+                        </a>
                     </div>
                     <div class="text-center pt-2 border-t border-slate-900/60 flex justify-center gap-4 text-xs">
                         <a href="06_self_reflection_real.py" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
@@ -487,21 +550,51 @@
 
     </main>
 
-    <!-- Terminal Overlay Modal -->
-    <div id="terminal-modal" class="fixed inset-0 z-50 bg-[#020617]/80 backdrop-blur-md hidden items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-3xl h-[32rem] rounded-3xl border-slate-800 flex flex-col overflow-hidden shadow-2xl relative">
-            <!-- Terminal Header -->
-            <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center flex-shrink-0">
+    <!-- Terminal/IDE Overlay Modal -->
+    <div id="terminal-modal" class="fixed inset-0 z-50 bg-[#020617]/85 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-7xl h-[85vh] rounded-3xl border-slate-800 flex flex-col overflow-hidden shadow-2xl relative">
+            <!-- Header -->
+            <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex flex-col sm:flex-row gap-4 justify-between items-center flex-shrink-0">
                 <div class="flex items-center gap-3">
                     <span id="terminal-status-dot" class="w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse"></span>
-                    <span id="terminal-title" class="text-xs font-mono font-bold text-slate-400">Terminal - Executing Script</span>
+                    <span id="terminal-title" class="text-xs font-mono font-bold text-slate-400">Sandbox Playground</span>
                 </div>
-                <button onclick="closeTerminal()" class="text-slate-500 hover:text-white transition text-xs font-mono bg-slate-900 border border-slate-800 px-3.5 py-1 rounded-lg">Close Terminal</button>
+                <!-- Control Buttons -->
+                <div class="flex items-center gap-2">
+                    <button id="run-editor-code-btn" onclick="executeEditorCode()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-lg transition flex items-center gap-1.5 shadow-lg shadow-blue-500/20 cursor-pointer">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Run Code Live
+                    </button>
+                    <button onclick="resetEditorCode()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-bold text-xs px-3.5 py-2 rounded-lg transition flex items-center gap-1.5 cursor-pointer">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M9 11l3-3-3-3"/></svg>
+                        Reset
+                    </button>
+                    <button onclick="closeTerminal()" class="text-slate-500 hover:text-white transition text-xs font-mono bg-slate-900 border border-slate-800 px-3.5 py-2 rounded-lg cursor-pointer">Close</button>
+                </div>
             </div>
             
-            <!-- Terminal Console Logs Output -->
-            <div id="terminal-console" class="flex-1 bg-black p-6 font-mono text-xs overflow-y-auto text-emerald-400 space-y-1 select-text selection:bg-slate-800">
-                <!-- Executed outputs append here -->
+            <!-- Split Pane Content -->
+            <div class="flex-1 flex flex-col md:flex-row overflow-hidden bg-slate-950/40">
+                <!-- Left Pane: Code Editor -->
+                <div class="flex-1 p-5 border-r border-slate-850 flex flex-col gap-2.5 overflow-hidden">
+                    <div class="flex justify-between items-center text-[10px] font-mono text-slate-500 px-1">
+                        <span id="editor-filename">editing: loading...</span>
+                        <span>editable code window</span>
+                    </div>
+                    <div class="flex-1 relative rounded-xl border border-slate-900 overflow-hidden bg-slate-950/40 min-h-[300px]">
+                        <div id="code-editor-container" class="absolute inset-0 w-full h-full"></div>
+                    </div>
+                </div>
+                
+                <!-- Right Pane: Terminal Output -->
+                <div class="flex-1 p-5 flex flex-col gap-2.5 overflow-hidden bg-black/60">
+                    <div class="text-[10px] font-mono text-slate-500 px-1">
+                        <span>execution console output</span>
+                    </div>
+                    <div id="terminal-console" class="flex-1 bg-black/80 p-5 font-mono text-xs overflow-y-auto text-emerald-400 space-y-1 select-text selection:bg-slate-800 rounded-xl border border-slate-950">
+                        <!-- Executed outputs append here -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -527,9 +620,53 @@
             });
         }
 
-        // WebAssembly Terminal Runner Logic
+        // Monaco Editor initialization and helper logic
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs' } });
+
+        let editorInstance = null;
+        function initMonacoEditor(initialValue = '') {
+            if (editorInstance) {
+                editorInstance.setValue(initialValue);
+                return Promise.resolve(editorInstance);
+            }
+            return new Promise((resolve) => {
+                // Temporarily restore AMD define for Monaco's loader
+                if (window.monacoDefine) {
+                    window.define = window.monacoDefine;
+                }
+                require(['vs/editor/editor.main'], function () {
+                    // Hide AMD define again immediately to prevent other libraries from detecting it
+                    if (window.define) {
+                        window.monacoDefine = window.define;
+                        window.define = undefined;
+                    }
+                    editorInstance = monaco.editor.create(document.getElementById('code-editor-container'), {
+                        value: initialValue,
+                        language: 'python',
+                        theme: 'vs-dark',
+                        automaticLayout: true,
+                        minimap: { enabled: false },
+                        fontSize: 12,
+                        lineNumbers: 'on',
+                        scrollBeyondLastLine: false,
+                        fontFamily: 'JetBrains Mono, monospace',
+                        renderLineHighlight: 'all',
+                        cursorBlinking: 'smooth',
+                        scrollbar: {
+                            vertical: 'auto',
+                            horizontal: 'auto'
+                        }
+                    });
+                    resolve(editorInstance);
+                });
+            });
+        }
+
+        // WebAssembly Terminal/IDE Runner Logic
         let pyodideInstance = null;
         let isPyodideLoading = false;
+        let originalCodeText = '';
+        let activeFilepath = '';
 
         async function initPyodide() {
             if (pyodideInstance) return pyodideInstance;
@@ -571,14 +708,18 @@
 
         async function runLiveCode(filepath, title) {
             const modal = document.getElementById('terminal-modal');
-            const titleEl = document.getElementById('terminal-title');
+            const editorFilename = document.getElementById('editor-filename');
             const consoleEl = document.getElementById('terminal-console');
             const dot = document.getElementById('terminal-status-dot');
 
             modal.style.display = 'flex';
-            titleEl.textContent = `Terminal - Executing ${filepath}`;
+            editorFilename.textContent = `editing: examples/${filepath}`;
             consoleEl.innerHTML = '';
+            
+            await initMonacoEditor('# Loading source code...');
+            
             dot.className = 'w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse';
+            activeFilepath = filepath;
 
             appendTerminalLog(`[System] Fetching source code for ${filepath}...`, 'text-blue-400');
 
@@ -595,25 +736,62 @@
                 const response = await fetch(fetchPath);
                 if (!response.ok) throw new Error(`Could not fetch script: ${response.statusText}`);
                 const code = await response.text();
-
-                appendTerminalLog(`[System] Source code fetched successfully. Starting compilation...`, 'text-blue-400');
                 
+                originalCodeText = code;
+                if (editorInstance) {
+                    editorInstance.setValue(code);
+                }
+
+                appendTerminalLog(`[System] Source code loaded. Starting execution...`, 'text-blue-400');
+                await executeEditorCode();
+
+            } catch (err) {
+                dot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+                appendTerminalLog('\n' + '='*60 + `\n[System Error] ${err.message}`, 'text-red-500 font-bold');
+            }
+        }
+
+        async function executeEditorCode() {
+            const consoleEl = document.getElementById('terminal-console');
+            const dot = document.getElementById('terminal-status-dot');
+            const runBtn = document.getElementById('run-editor-code-btn');
+
+            if (!editorInstance) return;
+            const codeToRun = editorInstance.getValue();
+            
+            consoleEl.innerHTML = '';
+            dot.className = 'w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse';
+            if (runBtn) runBtn.disabled = true;
+
+            appendTerminalLog(`[System] Starting Python WebAssembly execution...`, 'text-blue-400');
+
+            try {
                 const pyodide = await initPyodide();
                 if (!pyodide) {
                     throw new Error("Python WebAssembly runtime initialization failed.");
                 }
 
                 dot.className = 'w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse';
-                appendTerminalLog(`[System] Running python script: ${filepath}\n` + '='*60 + '\n', 'text-slate-500');
+                appendTerminalLog(`[System] Running updated python script: ${activeFilepath}\n` + '='*60 + '\n', 'text-slate-500');
 
-                // Execute Python code in Pyodide
-                await pyodide.runPythonAsync(code);
+                // Execute the code string directly from the editor
+                await pyodide.runPythonAsync(codeToRun);
 
                 dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
                 appendTerminalLog('\n' + '='*60 + `\n[System] Script execution finished successfully.`, 'text-emerald-500 font-bold');
             } catch (err) {
                 dot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
                 appendTerminalLog('\n' + '='*60 + `\n[System Error] ${err.message}`, 'text-red-500 font-bold');
+            } finally {
+                if (runBtn) runBtn.disabled = false;
+            }
+        }
+
+        function resetEditorCode() {
+            if (editorInstance) {
+                editorInstance.setValue(originalCodeText);
+                appendTerminalLog('\n[System] Code reset to original template.', 'text-blue-400');
+                executeEditorCode();
             }
         }
 

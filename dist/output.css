@@ -70,6 +70,7 @@
     --radius-3xl: 1.5rem;
     --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --blur-md: 12px;
+    --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -309,6 +310,9 @@
   .my-6 {
     margin-block: calc(var(--spacing) * 6);
   }
+  .my-8 {
+    margin-block: calc(var(--spacing) * 8);
+  }
   .mt-0\.5 {
     margin-top: calc(var(--spacing) * 0.5);
   }
@@ -350,6 +354,9 @@
   }
   .inline-flex {
     display: inline-flex;
+  }
+  .aspect-video {
+    aspect-ratio: var(--aspect-video);
   }
   .h-2\.5 {
     height: calc(var(--spacing) * 2.5);

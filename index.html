@@ -156,6 +156,7 @@
     <!-- Script Configuration -->
     <script>
         const LESSONS = [
+            { id: 'home', title: 'Home & Welcome', path: 'lessons/home.md' },
             { id: '00-python-crash-course', title: '0. Python Crash Course', path: 'lessons/00-python-crash-course.md' },
             { id: '01-agent-foundations', title: '1. Foundations of Agentic AI', path: 'lessons/01-agent-foundations.md' },
             { id: '02-single-agents', title: '2. Single-Agent Design', path: 'lessons/02-single-agents.md' },
@@ -312,10 +313,15 @@
                 }
 
                 // Configure checkbox status
-                const completed = getCompletedLessons();
-                checkbox.checked = completed.includes(lessonId);
-                checkboxContainer.classList.remove('hidden');
-                checkboxContainer.style.display = 'flex';
+                if (lessonId === 'home') {
+                    checkboxContainer.classList.add('hidden');
+                    checkboxContainer.style.display = 'none';
+                } else {
+                    const completed = getCompletedLessons();
+                    checkbox.checked = completed.includes(lessonId);
+                    checkboxContainer.classList.remove('hidden');
+                    checkboxContainer.style.display = 'flex';
+                }
                 
             } catch (err) {
                 console.error("Error loading lesson:", err);

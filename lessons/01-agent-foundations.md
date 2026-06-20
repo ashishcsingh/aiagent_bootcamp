@@ -2,6 +2,15 @@
 
 Welcome to Module 1 of the AI Agent Bootcamp. In this lesson, we will explore the foundational architectural blocks of autonomous agents, moving beyond simple chat interfaces into the realm of goal-driven digital workers.
 
+## 🎥 Lesson Video
+Below is an overview video covering the key concepts in this lesson:
+
+<div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl my-8">
+    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/86NY6fDs5SU" title="Foundations of Agentic AI Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+---
+
 ## 1. What is an AI Agent?
 
 An **AI Agent** is an autonomous entity powered by a foundation model (LLM) that can perceive its environment, formulate plans, use tools, maintain memory, and execute actions to achieve a specific, high-level goal without continuous human intervention.

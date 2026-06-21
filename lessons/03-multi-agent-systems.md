@@ -2,6 +2,15 @@
 
 As systems grow in complexity, a single agent can quickly become overwhelmed by too many tools, a large context window, or competing tasks. In this module, we will explore multi-agent architectures and collaboration frameworks.
 
+## 🎥 Lesson Video
+Below is an overview video covering the key concepts in this lesson:
+
+<div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl my-8">
+    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/q1p6-hOLO6Q" title="Multi-Agent Systems Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+---
+
 ## 1. Why Multi-Agent?
 
 Single agents suffer from "tool bloat" and context dilution. By splitting tasks among specialized agents, we can:

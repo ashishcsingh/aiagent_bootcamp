@@ -152,14 +152,14 @@
     <!-- Script Configuration -->
     <script>
         const LESSONS = [
-            { id: 'home', title: 'Home & Welcome', path: 'lessons/home.md' },
-            { id: '00-python-crash-course', title: '0. Python Crash Course', path: 'lessons/00-python-crash-course.md' },
-            { id: '01-agent-foundations', title: '1. Foundations of Agentic AI', path: 'lessons/01-agent-foundations.md' },
-            { id: '02-single-agents', title: '2. Single-Agent Design', path: 'lessons/02-single-agents.md' },
-            { id: '03-multi-agent-systems', title: '3. Multi-Agent Systems', path: 'lessons/03-multi-agent-systems.md' },
-            { id: '04-model-context-protocol', title: '4. Model Context Protocol', path: 'lessons/04-model-context-protocol.md' },
-            { id: '05-production-deployment', title: '5. Production & Safety', path: 'lessons/05-production-deployment.md' },
-            { id: '06-agent-concepts', title: '6. Key Agent Concepts', path: 'lessons/06-agent-concepts.md' }
+            { id: 'home', title: 'Home & Welcome', path: 'lessons/home.md', description: 'Welcome to the aiagent.org Developer Bootcamp, a premium, self-paced technical curriculum for AI Agent development.' },
+            { id: '00-python-crash-course', title: '0. Python Crash Course', path: 'lessons/00-python-crash-course.md', description: 'Get up to speed with Python environment setup, variables, data structures, error handling, and asynchronous programming.' },
+            { id: '01-agent-foundations', title: '1. Foundations of Agentic AI', path: 'lessons/01-agent-foundations.md', description: 'Explore the architectural components of autonomous agents, reasoning-acting (ReAct) execution loops, and prompting patterns.' },
+            { id: '02-single-agents', title: '2. Single-Agent Design', path: 'lessons/02-single-agents.md', description: 'Build a complete single-agent tool execution loop from scratch using Python and the official Google GenAI SDK.' },
+            { id: '03-multi-agent-systems', title: '3. Multi-Agent Systems', path: 'lessons/03-multi-agent-systems.md', description: 'Orchestrate multi-agent networks using CrewAI, LangGraph, and Microsoft AutoGen. Build state graphs and conversation loops.' },
+            { id: '04-model-context-protocol', title: '4. Model Context Protocol', path: 'lessons/04-model-context-protocol.md', description: 'Master the Model Context Protocol (MCP). Learn how to build custom stdio-based MCP servers using Python.' },
+            { id: '05-production-deployment', title: '5. Production & Safety', path: 'lessons/05-production-deployment.md', description: 'Enforce security and safety for production agents: execution sandboxing, prompt injection defense, and cost management.' },
+            { id: '06-agent-concepts', title: '6. Key Agent Concepts', path: 'lessons/06-agent-concepts.md', description: 'Review modern agent terminology: cognitive architectures, transparency models, sandboxing, and algorithmic humility.' }
         ];
 
         let activeLessonId = '';
@@ -253,6 +253,37 @@
 
             const lesson = LESSONS.find(l => l.id === lessonId);
             if (!lesson) return;
+
+            // Dynamically update SEO tags and titles
+            try {
+                document.title = lesson.id === 'home' ? 'AI Agent Bootcamp | aiagent.org' : `${lesson.title} | AI Agent Bootcamp`;
+
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) metaDesc.setAttribute('content', lesson.description);
+
+                const ogDesc = document.querySelector('meta[property="og:description"]');
+                if (ogDesc) ogDesc.setAttribute('content', lesson.description);
+
+                const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+                if (twitterDesc) twitterDesc.setAttribute('content', lesson.description);
+
+                const ogTitle = document.querySelector('meta[property="og:title"]');
+                if (ogTitle) ogTitle.setAttribute('content', document.title);
+
+                const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+                if (twitterTitle) twitterTitle.setAttribute('content', document.title);
+
+                const canonicalLink = document.querySelector('link[rel="canonical"]');
+                if (canonicalLink) canonicalLink.setAttribute('href', `https://aiagent.org/bootcamp/#${lesson.id}`);
+
+                const ogUrl = document.querySelector('meta[property="og:url"]');
+                if (ogUrl) ogUrl.setAttribute('content', `https://aiagent.org/bootcamp/#${lesson.id}`);
+
+                const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+                if (twitterUrl) twitterUrl.setAttribute('content', `https://aiagent.org/bootcamp/#${lesson.id}`);
+            } catch (seoErr) {
+                console.error("Failed to update SEO tags dynamically:", seoErr);
+            }
 
             try {
                 // Resolve trailing-slash routing issues on live hosting environments

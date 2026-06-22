@@ -548,24 +548,24 @@
             isPyodideLoading = true;
             appendTerminalLog('[System] Initializing WebAssembly Python environment (this may take a few seconds)...', 'text-blue-400');
             
+            // Temporarily hide Monaco's AMD define so Pyodide initialization does not conflict
+            const tempDefine = window.define;
+            window.define = undefined;
+
             try {
                 await loadScript("https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js");
-
-                // Temporarily hide Monaco's AMD define so Pyodide initialization does not conflict
-                const tempDefine = window.define;
-                window.define = undefined;
 
                 pyodideInstance = await loadPyodide({
                     stdout: (text) => appendTerminalLog(text, 'text-emerald-400'),
                     stderr: (text) => appendTerminalLog(text, 'text-red-400')
                 });
                 
-                // Restore Monaco's AMD define immediately
-                window.define = tempDefine;
                 appendTerminalLog('[System] WebAssembly Python environment ready.', 'text-blue-400');
             } catch (err) {
                 appendTerminalLog('[System Error] Failed to initialize Pyodide: ' + err.message, 'text-red-500 font-bold');
             } finally {
+                // Restore Monaco's AMD define immediately
+                window.define = tempDefine;
                 isPyodideLoading = false;
             }
             return pyodideInstance;

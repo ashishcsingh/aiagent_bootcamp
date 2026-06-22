@@ -41,14 +41,10 @@
     </noscript>
 
     <!-- Dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <!-- Pyodide WebAssembly Python Runtime -->
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
-    <!-- Monaco Editor Loader -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs/loader.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"></noscript>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 <body class="antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col hero-bg text-slate-300">
 
@@ -306,6 +302,10 @@
 
                 if (mermaidBlocks.length > 0) {
                     try {
+                        if (typeof mermaid === 'undefined') {
+                            await loadScript("https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js");
+                            mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+                        }
                         await mermaid.run();
                     } catch (mermaidError) {
                         console.error("Mermaid diagram rendering failed:", mermaidError);
@@ -380,17 +380,27 @@
             toggleLessonProgress(activeLessonId, e.target.checked);
         };
 
+        // Helper function to dynamically load scripts
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                if (document.querySelector(`script[src="${src}"]`)) {
+                    resolve();
+                    return;
+                }
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => resolve();
+                script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+                document.head.appendChild(script);
+            });
+        }
+
         // Initialize App
         window.addEventListener('DOMContentLoaded', () => {
             // Initialize marked options inside the DOMContentLoaded callback so it runs after
             // the deferred marked.js and highlight.js scripts have executed and defined global objects.
             initializeMarked();
 
-            // Initialize Mermaid inside the DOMContentLoaded callback so it runs after
-            // the deferred mermaid.js script has executed and defined the global mermaid object.
-            if (typeof mermaid !== 'undefined') {
-                mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
-            }
             const hash = window.location.hash.replace('#', '');
             const startLesson = LESSONS.some(l => l.id === hash) ? hash : LESSONS[0].id;
             loadLesson(startLesson);
@@ -448,20 +458,23 @@
 
     <!-- WebAssembly Terminal/IDE Runner Logic -->
     <script>
-        // Monaco Editor initialization and helper logic
-        require.config({
-            paths: {
-                vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs',
-                stackframe: 'https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.3.4/stackframe.min.js'
-            }
-        });
-
         let editorInstance = null;
-        function initMonacoEditor(initialValue = '') {
+        async function initMonacoEditor(initialValue = '') {
             if (editorInstance) {
                 editorInstance.setValue(initialValue);
                 return Promise.resolve(editorInstance);
             }
+            
+            await loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs/loader.min.js");
+
+            // Monaco Editor initialization and helper logic
+            require.config({
+                paths: {
+                    vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs',
+                    stackframe: 'https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.3.4/stackframe.min.js'
+                }
+            });
+
             return new Promise((resolve) => {
                 require(['vs/editor/editor.main'], function () {
                     editorInstance = monaco.editor.create(document.getElementById('code-editor-container'), {
@@ -504,22 +517,24 @@
             isPyodideLoading = true;
             appendTerminalLog('[System] Initializing WebAssembly Python environment (this may take a few seconds)...', 'text-blue-400');
             
-            // Temporarily hide Monaco's AMD define so Pyodide initialization does not conflict
-            const tempDefine = window.define;
-            window.define = undefined;
-
             try {
+                await loadScript("https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js");
+
+                // Temporarily hide Monaco's AMD define so Pyodide initialization does not conflict
+                const tempDefine = window.define;
+                window.define = undefined;
+
                 pyodideInstance = await loadPyodide({
                     stdout: (text) => appendTerminalLog(text, 'text-emerald-400'),
                     stderr: (text) => appendTerminalLog(text, 'text-red-400')
                 });
                 
+                // Restore Monaco's AMD define immediately
+                window.define = tempDefine;
                 appendTerminalLog('[System] WebAssembly Python environment ready.', 'text-blue-400');
             } catch (err) {
                 appendTerminalLog('[System Error] Failed to initialize Pyodide: ' + err.message, 'text-red-500 font-bold');
             } finally {
-                // Restore Monaco's AMD define immediately
-                window.define = tempDefine;
                 isPyodideLoading = false;
             }
             return pyodideInstance;

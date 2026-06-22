@@ -2,6 +2,15 @@
 
 As the AI agent ecosystem grows, connecting models to secure data sources and local tools has traditionally required building custom integrations for each IDE, framework, or app. In this lesson, we will explore the **Model Context Protocol (MCP)**, an open standard that addresses this challenge.
 
+## 🎥 Lesson Video
+Below is an overview video covering the key concepts in this lesson:
+
+<div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl my-8">
+    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/_TYQod0UrQE" title="Model Context Protocol Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+---
+
 ## 1. What is MCP?
 
 Introduced as a universal standard, **Model Context Protocol (MCP)** is an open-source protocol that allows developers to build secure, standardized connections between AI models and their data sources. 

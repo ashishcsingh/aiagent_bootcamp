@@ -140,7 +140,87 @@ def get_weather_alerts() -> str:
     return "ALERT: High wind advisory active for the Pacific Northwest."
 
 if __name__ == "__main__":
-    print("[*] Starting FastMCP Server on stdio...")
+    # Note: FastMCP automatically handles stdio when run directly
     mcp.run()
+```
+
+#### ⚙️ 2. Client Configurations (Claude Desktop & Cursor)
+
+To register this server with your favorite developer tools, use the configurations below.
+
+##### Claude Desktop
+Open your `claude_desktop_config.json` (located at `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS, or `%APPDATA%\Claude\claude_desktop_config.json` on Windows) and add the server definition:
+
+```json
+{
+  "mcpServers": {
+    "bootcamp-weather": {
+      "command": "python3",
+      "args": [
+        "/absolute/path/to/examples/02_mcp_server_real.py"
+      ]
+    }
+  }
+}
+```
+
+##### Cursor IDE
+1. Go to **Settings** &rarr; **Features** &rarr; **MCP**.
+2. Click **+ Add New MCP Server**.
+3. Fill in the parameters:
+   * **Name**: `bootcamp-weather`
+   * **Type**: `command`
+   * **Command**: `python3 /absolute/path/to/examples/02_mcp_server_real.py`
+
+---
+
+#### 🔌 3. Custom Python MCP Client
+
+If you want to build a custom client to query this stdio-based server programmatically, install the SDK client and use the script below:
+
+```bash
+pip install mcp
+```
+
+```python
+#!/usr/bin/env python3
+"""
+Example 02_client: Querying the FastMCP Weather Server via stdio
+"""
+
+import asyncio
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+# Define parameters to start the server process
+server_params = StdioServerParameters(
+    command="python3",
+    args=["/absolute/path/to/examples/02_mcp_server_real.py"],
+    env=None
+)
+
+async def main():
+    print("[*] Connecting to FastMCP Server...")
+    
+    # Establish standard input/output streams
+    async with stdio_client(server_params) as (read_stream, write_stream):
+        async with ClientSession(read_stream, write_stream) as session:
+            # Initialize connection handshake
+            await session.initialize()
+            print("[✔] Session initialized successfully.")
+            
+            # List available tools from server
+            tools = await session.list_tools()
+            print(f"[Client] Available Tools: {[t.name for t in tools.tools]}")
+            
+            # Execute tool call
+            print("[Client] Calling tool 'get_weather' for 'San Francisco'...")
+            response = await session.call_tool("get_weather", arguments={"city": "San Francisco"})
+            
+            print("\n" + "="*40 + "\n[Server Tool Output]:\n" + "="*40)
+            print(response.content[0].text)
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 

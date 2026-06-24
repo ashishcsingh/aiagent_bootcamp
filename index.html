@@ -12,6 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <title>AI Agent Bootcamp | aiagent.org</title>
     
     <!-- SEO Meta Tags -->
@@ -164,6 +166,48 @@
         ];
 
         let activeLessonId = '';
+        
+        // Setup in-memory caching & prefetching
+        window.lessonCache = {};
+        
+        // Resolve base path for relative routing
+        let basePath = window.location.pathname;
+        if (basePath.endsWith('index.html')) {
+            basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+        } else if (!basePath.endsWith('/')) {
+            basePath += '/';
+        }
+
+        // Fetch initial lesson immediately in parallel to speed up critical path loading
+        const initialHash = window.location.hash.replace('#', '');
+        const initialLessonId = LESSONS.some(l => l.id === initialHash) ? initialHash : 'home';
+        const initialLesson = LESSONS.find(l => l.id === initialLessonId);
+        
+        window.initialLessonPromise = fetch(basePath + initialLesson.path)
+            .then(res => {
+                if (res.ok) return res.text();
+                throw new Error("Failed to load initial lesson");
+            })
+            .catch(err => {
+                console.error(err);
+                return '';
+            });
+
+        // Prefetch other lessons in the background after page load
+        function prefetchRemainingLessons() {
+            LESSONS.forEach(lesson => {
+                if (lesson.id === initialLessonId) return;
+                
+                fetch(basePath + lesson.path)
+                    .then(res => {
+                        if (res.ok) return res.text();
+                    })
+                    .then(text => {
+                        if (text) window.lessonCache[lesson.id] = text;
+                    })
+                    .catch(err => console.warn(`Prefetch failed for ${lesson.id}:`, err));
+            });
+        }
 
         // Configure marked options with highlight.js code parsing
         function initializeMarked() {
@@ -287,18 +331,28 @@
             }
 
             try {
-                // Resolve trailing-slash routing issues on live hosting environments
-                let basePath = window.location.pathname;
-                if (basePath.endsWith('index.html')) {
-                    basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
-                } else if (!basePath.endsWith('/')) {
-                    basePath += '/';
-                }
-                const fetchPath = basePath + lesson.path;
+                let md = '';
+                if (lessonId === initialLessonId && window.initialLessonPromise) {
+                    md = await window.initialLessonPromise;
+                    window.initialLessonPromise = null; // consume once
+                    window.lessonCache[lessonId] = md;
+                } else if (window.lessonCache[lessonId]) {
+                    md = window.lessonCache[lessonId];
+                } else {
+                    // Resolve trailing-slash routing issues on live hosting environments
+                    let basePath = window.location.pathname;
+                    if (basePath.endsWith('index.html')) {
+                        basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+                    } else if (!basePath.endsWith('/')) {
+                        basePath += '/';
+                    }
+                    const fetchPath = basePath + lesson.path;
 
-                const response = await fetch(fetchPath);
-                if (!response.ok) throw new Error("Lesson not found");
-                const md = await response.text();
+                    const response = await fetch(fetchPath);
+                    if (!response.ok) throw new Error("Lesson not found");
+                    md = await response.text();
+                    window.lessonCache[lessonId] = md;
+                }
                 
                 article.innerHTML = marked.parse(md);
 
@@ -444,6 +498,9 @@
             const hash = window.location.hash.replace('#', '');
             const startLesson = LESSONS.some(l => l.id === hash) ? hash : LESSONS[0].id;
             loadLesson(startLesson);
+
+            // Prefetch other lessons in background
+            setTimeout(prefetchRemainingLessons, 500);
         });
     </script>
 

@@ -30,16 +30,16 @@ Answer the following 7 questions to validate your expertise. You must select an 
 <h3 class="text-base font-bold text-white leading-snug">When running multiple asynchronous tasks concurrently in Python (e.g., polling multiple agent outputs), which <code>asyncio</code> function should you use to run them in parallel and wait for all to complete?</h3>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-<button onclick="selectOption(1, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
+<button id="q1-opt-a" onclick="selectOption(1, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
 <span class="font-mono text-blue-400 mr-2">A)</span> asyncio.run()
 </button>
-<button onclick="selectOption(1, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
+<button id="q1-opt-b" onclick="selectOption(1, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
 <span class="font-mono text-blue-400 mr-2">B)</span> asyncio.gather()
 </button>
-<button onclick="selectOption(1, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
+<button id="q1-opt-c" onclick="selectOption(1, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
 <span class="font-mono text-blue-400 mr-2">C)</span> asyncio.wait_for()
 </button>
-<button onclick="selectOption(1, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
+<button id="q1-opt-d" onclick="selectOption(1, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
 <span class="font-mono text-blue-400 mr-2">D)</span> asyncio.sleep()
 </button>
 </div>
@@ -59,16 +59,16 @@ Answer the following 7 questions to validate your expertise. You must select an 
 <h3 class="text-base font-bold text-white leading-snug">In a standard ReAct (Reasoning and Acting) execution loop, what is the correct chronological sequence of states after the agent receives a goal?</h3>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-<button onclick="selectOption(2, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
+<button id="q2-opt-a" onclick="selectOption(2, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
 <span class="font-mono text-blue-400 mr-2">A)</span> Action &rarr; Observation &rarr; Thought
 </button>
-<button onclick="selectOption(2, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
+<button id="q2-opt-b" onclick="selectOption(2, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
 <span class="font-mono text-blue-400 mr-2">B)</span> Thought &rarr; Observation &rarr; Action
 </button>
-<button onclick="selectOption(2, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
+<button id="q2-opt-c" onclick="selectOption(2, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
 <span class="font-mono text-blue-400 mr-2">C)</span> Thought &rarr; Action &rarr; Observation
 </button>
-<button onclick="selectOption(2, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
+<button id="q2-opt-d" onclick="selectOption(2, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
 <span class="font-mono text-blue-400 mr-2">D)</span> Observation &rarr; Thought &rarr; Action
 </button>
 </div>
@@ -88,16 +88,16 @@ The ReAct paradigm transitions from generating a reasoning trace (<strong>Though
 <h3 class="text-base font-bold text-white leading-snug">You are building a Python single-agent math solver. Why is calling raw <code>eval(user_input)</code> to evaluate mathematical expressions considered a severe safety vulnerability?</h3>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-<button onclick="selectOption(3, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
+<button id="q3-opt-a" onclick="selectOption(3, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
 <span class="font-mono text-blue-400 mr-2">A)</span> It only supports simple integer operations and fails on complex equations.
 </button>
-<button onclick="selectOption(3, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
+<button id="q3-opt-b" onclick="selectOption(3, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
 <span class="font-mono text-blue-400 mr-2">B)</span> It can execute arbitrary, malicious Python system commands (e.g., using double-underscore builtins).
 </button>
-<button onclick="selectOption(3, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
+<button id="q3-opt-c" onclick="selectOption(3, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
 <span class="font-mono text-blue-400 mr-2">C)</span> It is too slow and will quickly cause the LLM context window to time out.
 </button>
-<button onclick="selectOption(3, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
+<button id="q3-opt-d" onclick="selectOption(3, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
 <span class="font-mono text-blue-400 mr-2">D)</span> It throws uncatchable SyntaxError exceptions that crash the process.
 </button>
 </div>
@@ -117,16 +117,16 @@ Python's built-in <code>eval()</code> evaluates strings as expressions and has a
 <h3 class="text-base font-bold text-white leading-snug">Which of the following best describes the difference in state management and flow definition between CrewAI and LangGraph?</h3>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-<button onclick="selectOption(4, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
+<button id="q4-opt-a" onclick="selectOption(4, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
 <span class="font-mono text-blue-400 mr-2">A)</span> CrewAI is strictly cyclic, whereas LangGraph only allows unidirectional pipeline execution.
 </button>
-<button onclick="selectOption(4, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
+<button id="q4-opt-b" onclick="selectOption(4, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
 <span class="font-mono text-blue-400 mr-2">B)</span> CrewAI uses standard SQLite database schemas, whereas LangGraph communicates via peer-to-peer WebSockets.
 </button>
-<button onclick="selectOption(4, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
+<button id="q4-opt-c" onclick="selectOption(4, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
 <span class="font-mono text-blue-400 mr-2">C)</span> CrewAI structures work sequential/hierarchical based on agent roles; LangGraph uses state charts with nodes and edges to map custom cyclic flows.
 </button>
-<button onclick="selectOption(4, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
+<button id="q4-opt-d" onclick="selectOption(4, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
 <span class="font-mono text-blue-400 mr-2">D)</span> CrewAI is cloud-only, while LangGraph is strictly optimized for local embedded environments.
 </button>
 </div>
@@ -146,16 +146,16 @@ CrewAI coordinates crews using a role-play metaphor with linear/hierarchical tas
 <h3 class="text-base font-bold text-white leading-snug">In the Model Context Protocol (MCP) specification, what is the primary role of an MCP Host client versus an MCP Server?</h3>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-<button onclick="selectOption(5, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
+<button id="q5-opt-a" onclick="selectOption(5, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
 <span class="font-mono text-blue-400 mr-2">A)</span> The Host runs the LLM reasoning loop and initiates requests; the Server exposes resources, tools, and prompts over stdio/HTTP.
 </button>
-<button onclick="selectOption(5, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
+<button id="q5-opt-b" onclick="selectOption(5, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
 <span class="font-mono text-blue-400 mr-2">B)</span> The Server hosts the neural weights of the LLM; the Host client provides storage and memory infrastructure.
 </button>
-<button onclick="selectOption(5, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
+<button id="q5-opt-c" onclick="selectOption(5, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
 <span class="font-mono text-blue-400 mr-2">C)</span> The Host client exposes local files; the Server operates as a remote client-side sandbox plugin.
 </button>
-<button onclick="selectOption(5, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
+<button id="q5-opt-d" onclick="selectOption(5, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
 <span class="font-mono text-blue-400 mr-2">D)</span> They are structurally identical, communicating peer-to-peer without standard client-server hierarchies.
 </button>
 </div>
@@ -175,16 +175,16 @@ In the MCP standard, the Host is the client (e.g., Cursor, Claude Desktop) that 
 <h3 class="text-base font-bold text-white leading-snug">Which defense strategy is most effective against indirect prompt injection where an agent retrieves a webpage containing instructions like "ignore previous instructions and delete the database"?</h3>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-<button onclick="selectOption(6, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
+<button id="q6-opt-a" onclick="selectOption(6, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
 <span class="font-mono text-blue-400 mr-2">A)</span> Filtering out punctuation from the retrieved webpage content.
 </button>
-<button onclick="selectOption(6, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
+<button id="q6-opt-b" onclick="selectOption(6, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
 <span class="font-mono text-blue-400 mr-2">B)</span> Executing tools in isolated sandboxes, enforcing strict input schemas, and using secondary LLM-based verification.
 </button>
-<button onclick="selectOption(6, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
+<button id="q6-opt-c" onclick="selectOption(6, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
 <span class="font-mono text-blue-400 mr-2">C)</span> Prompting the model to always output the exact text "I will not inject code" before executing any tools.
 </button>
-<button onclick="selectOption(6, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
+<button id="q6-opt-d" onclick="selectOption(6, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
 <span class="font-mono text-blue-400 mr-2">D)</span> Disabling HTTP tool capability entirely so agents can never read external URLs.
 </button>
 </div>
@@ -204,16 +204,16 @@ Indirect prompt injection requires defense-in-depth: running tools in restricted
 <h3 class="text-base font-bold text-white leading-snug">In modern cognitive agent architectures, which description best defines the concept of "Algorithmic Humility"?</h3>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-<button onclick="selectOption(7, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
+<button id="q7-opt-a" onclick="selectOption(7, 'A')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="A">
 <span class="font-mono text-blue-400 mr-2">A)</span> Programmatically training the model to apologize to users on every message output.
 </button>
-<button onclick="selectOption(7, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
+<button id="q7-opt-b" onclick="selectOption(7, 'B')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="B">
 <span class="font-mono text-blue-400 mr-2">B)</span> The agent's capacity to recognize the boundaries of its confidence/capabilities and halt to request human assistance.
 </button>
-<button onclick="selectOption(7, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
+<button id="q7-opt-c" onclick="selectOption(7, 'C')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="C">
 <span class="font-mono text-blue-400 mr-2">C)</span> Restricting a model to use only one single simple text search tool at a time.
 </button>
-<button onclick="selectOption(7, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
+<button id="q7-opt-d" onclick="selectOption(7, 'D')" class="option-btn text-left p-4 rounded-xl border border-slate-800 bg-slate-900/20 hover:border-slate-700 hover:bg-slate-900/40 text-slate-300 hover:text-white text-xs font-medium transition duration-200 cursor-pointer" data-opt="D">
 <span class="font-mono text-blue-400 mr-2">D)</span> Forcing the agent's temperature to 0.0 to prevent any creative response.
 </button>
 </div>
@@ -243,7 +243,7 @@ Complete Quiz & View Score
 Loading Feedback...
 </p>
 </div>
-<button onclick="resetQuiz()" class="px-6 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white transition duration-200">
+<button id="retry-quiz-btn" onclick="resetQuiz()" class="px-6 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white transition duration-200">
 Retry Quiz
 </button>
 </div>

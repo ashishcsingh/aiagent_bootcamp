@@ -2,6 +2,15 @@
 
 Moving an agent from a local prototype to a production-grade system requires addressing key concerns around security, reliability, cost management, and evaluation. In this final module, we cover these operational practices.
 
+## 🎥 Lesson Video
+Below is an overview video covering the key concepts in this lesson:
+
+<div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl my-8">
+    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/LHE7_wnWydI" title="Production & Safety Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+---
+
 ## 1. Sandboxed Code Execution
 
 If an agent has the ability to write and run code (e.g., executing Python scripts to analyze data or write programs), **NEVER** run that code directly on the host system. Doing so exposes your server to arbitrary system commands, data deletions, and security breaches.

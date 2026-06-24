@@ -159,7 +159,8 @@
             { id: '03-multi-agent-systems', title: '3. Multi-Agent Systems', path: 'lessons/03-multi-agent-systems.md', description: 'Orchestrate multi-agent networks using CrewAI, LangGraph, and Microsoft AutoGen. Build state graphs and conversation loops.' },
             { id: '04-model-context-protocol', title: '4. Model Context Protocol', path: 'lessons/04-model-context-protocol.md', description: 'Master the Model Context Protocol (MCP). Learn how to build custom stdio-based MCP servers using Python.' },
             { id: '05-production-deployment', title: '5. Production & Safety', path: 'lessons/05-production-deployment.md', description: 'Enforce security and safety for production agents: execution sandboxing, prompt injection defense, and cost management.' },
-            { id: '06-agent-concepts', title: '6. Key Agent Concepts', path: 'lessons/06-agent-concepts.md', description: 'Review modern agent terminology: cognitive architectures, transparency models, sandboxing, and algorithmic humility.' }
+            { id: '06-agent-concepts', title: '6. Key Agent Concepts', path: 'lessons/06-agent-concepts.md', description: 'Review modern agent terminology: cognitive architectures, transparency models, sandboxing, and algorithmic humility.' },
+            { id: '07-test-your-knowledge', title: '7. Test Your Knowledge', path: 'lessons/07-test-your-knowledge.md', description: 'Test your understanding of Python agent loops, multi-agent orchestrations, MCP, and safety constraints.' }
         ];
 
         let activeLessonId = '';
@@ -300,6 +301,14 @@
                 const md = await response.text();
                 
                 article.innerHTML = marked.parse(md);
+
+                // Execute script tags inside the parsed HTML
+                article.querySelectorAll('script').forEach((oldScript) => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
                 
                 // Intercept and render Mermaid diagrams
                 const mermaidBlocks = article.querySelectorAll('.language-mermaid');

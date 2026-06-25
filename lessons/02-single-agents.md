@@ -2,6 +2,15 @@
 
 In this module, we will explore the design of a single-agent system and learn how to integrate external tools into an agent's execution loop using standard Python code.
 
+## 🎥 Lesson Video
+Below is an overview video covering the key concepts in this lesson:
+
+<div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl my-8">
+    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/GomFkSiLmps" title="Single-Agent Design & Tool Integration Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+---
+
 ## 1. Defining Tools
 
 To make tools discoverable by an LLM, we must declare them using a structured schema (typically a JSON Schema) that specifies:
